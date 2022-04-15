@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <link rel="stylesheet" href="styles.css">
+
+   <title>Quizzly Bears API</title>
+</head>
+<body>
+
+   <h1>QUIZZLY BEARS API</h1>
+   <p>The API is a mechanism which allows queries in the semantic database. It provides access to information from the data catalogue and URIs.
+      These queries can be carried out based on a series of criteria selected by the user and using uniform resource identifiers (URI).</p>
+
+   <h4>RESPONSE FORMAT</h3>
+   <P> <strong> JSON</strong> is the default response format</P>
+
+   <h2>Available References</h2>
+   <h3>Data catalogue</h3>
+
+   <p>Set of calls which allow the API catalogue queries.</p>
+
+   <table>
+      <tr>
+         <th>Operation</th>
+         <th>Description</th>
+         <th>Method</th>
+         <th>Example</th>
+      </tr>
+      <tr>
+         <td>All users' information</td>
+         <td class="route">/users</td>
+         <td class="method">GET</td>
+         <td class="example">https://quizzlybears.azurewebsites.net/users</td>
+      </tr>
+      <tr>
+         <td>A user's information by id</td>
+         <td class="route">/users/<strong>:id</strong></td>
+         <td class="method">GET</td>
+         <td class="example">https://quizzlybears.azurewebsites.net/users/<strong>60f532903ded77001064ae92</strong></td>
+      </tr>
+
+   </table>
+
+
+</body>
+</html>

@@ -12,9 +12,9 @@ services:
     volumes:
       - "test_db:/var/lib/mongodb/data"
     environment: 
-      - MONGO_INITDB_ROOT_USERNAME=mustard
-      - MONGO_INITDB_DATABASE=quizzlybears
-      - MONGO_INITDB_ROOT_PASSWORD=marywilkes
+      - MONGO_INITDB_ROOT_USERNAME=quizzlybearsdb
+      - MONGO_INITDB_DATABASE=quizzlybearsdb
+      - MONGO_INITDB_ROOT_PASSWORD = fbIm47RxHqnwUnbcx5zbGgkCTLIniJwZIC3DSHJajJwdwBuPr95Ywdr1wIKd0D5t1kPBccAG4784ACN5zDyYmQ%3D%3D
 volumes:
   test_db:
 networks: 

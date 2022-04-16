@@ -7,11 +7,15 @@ const connectionUrl = "mongodb://quizzlybearsdb:fbIm47RxHqnwUnbcx5zbGgkCTLIniJwZ
 
 
 const init = async () => {
-  let client = await MongoClient.connect(connectionUrl, function (err, client) {
-    client.close();
-  });
-  console.log('connected to database!', DB_NAME)
-  return client.db(DB_NAME)
+  try{
+    let client = await MongoClient.connect(connectionUrl, function (err, client) {
+      client.close();
+    });
+    console.log('connected to database!', DB_NAME)
+    return client.db(DB_NAME)
+  }catch(e){
+    console.warn(e.message)
+  }
 }
 
 

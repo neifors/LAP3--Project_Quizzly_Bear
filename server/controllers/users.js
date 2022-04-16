@@ -6,13 +6,13 @@ const User = require("../models/User")
 
 
 
-router.get('/register', async (req, res) => {
+router.post('/register', async (req, res) => {
   
   const salt = await bcrypt.genSalt();
-  const hashed = await bcrypt.hash("futureproof", salt)
+  const hashed = await bcrypt.hash(req.body.password, salt)
 
   const user = new User({
-  username: "futureproof",
+  username: req.body.username,
   password: hashed ,
   games: []
   });

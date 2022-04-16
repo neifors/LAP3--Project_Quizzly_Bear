@@ -1,42 +1,27 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const jwt = require("jsonwebtoken");
 
-const User= require('../models/User')
+const User = require("../models/User")
 
 
-// const { verifyToken } = require('../middleware/auth');
 
-// users index route
-router.get('/', async (req, res) => {
-  try {
-      const users = await User.all
-      res.json(users)
-  } catch(err) {
-      res.status(500).json({err})
-  }
+router.get('/register', async (req, res) => {
+  
+  const salt = await bcrypt.genSalt();
+  const hashed = await bcrypt.hash("futureproof", salt)
+
+  const user = new User({
+  username: "futureproof",
+  password: hashed ,
+  games: []
+  });
+
+  user.save((err, saveUser) => {
+    console.log(JSON.stringify(saveUser));
+  res.status(201).send("created")
+  });
+
 })
 
-router.post('/register', async (req, res)=> {
-  try {
-    const checkeusername = await User.findByUsername(req.body.username)
-    if(checkeusername) {
-        return res.status(400).send("Username already exists")
-    }
-  } catch(err){
-      console.log(err)
-      const salt = await bcrypt.genSalt();
-      const hashed = await bcrypt.hash(req.body.password, salt)
-      console.log(hashed)
-      const data = {username: req.body.username, password: hashed, games: []}
-      console.log(data)
-      const result = await User.create( data )
-      if (!result){
-          return res.status(500).json({msg: 'user couldnt be registered'})
-      }
-      res.status(201).json({msg: 'User created',newuser: result})
-  }
-})
-
-module.exports = router
+module.exports=router;

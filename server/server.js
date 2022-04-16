@@ -6,9 +6,8 @@ server.use(express.json());
 const path = require('path');
 
 
-const postRoutes = require('./routers/post')
-
-server.use("/posts", postRoutes);
+const userRoutes = require("./controllers/users")
+server.use("/users", userRoutes);
 
 const htmlIndexRoute = path.join(__dirname, '/src/template/index.html')
 const cssRoute = path.join(__dirname, '/src/template/index.css')
@@ -19,6 +18,7 @@ server.get('/', (req, res)=>{
 server.get('/styles.css', (req, res) => {
     res.sendFile(cssRoute);
   });
+
 
 module.exports= server;
 

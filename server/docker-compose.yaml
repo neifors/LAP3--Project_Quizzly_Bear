@@ -2,8 +2,22 @@ version: '3'
 services:
   server:
     image: node:12.18.4
+    environment: 
+      - DB_NAME=quizzlybearsdb
+      - DB_CONNECTION = mongodb://quizzlybearsdb:fbIm47RxHqnwUnbcx5zbGgkCTLIniJwZIC3DSHJajJwdwBuPr95Ywdr1wIKd0D5t1kPBccAG4784ACN5zDyYmQ==@quizzlybearsdb.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@quizzlybearsdb@
+    depends_on:
+      - db
     volumes:
       - type: bind
         source: ./
         target: /code
-
+  db:
+    image: mongo:latest
+    volumes:
+      - "./db/:/docker-entrypoint-initdb.d/:ro"
+    environment: 
+      - MONGO_INITDB_ROOT_USERNAME=quizzlybearsdb
+      - MONGO_INITDB_DATABASE=quizzlybearsdb
+      - MONGO_INITDB_ROOT_PASSWORD = fbIm47RxHqnwUnbcx5zbGgkCTLIniJwZIC3DSHJajJwdwBuPr95Ywdr1wIKd0D5t1kPBccAG4784ACN5zDyYmQ%3D%3D
+volumes:
+  dbdata:

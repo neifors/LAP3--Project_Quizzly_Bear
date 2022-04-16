@@ -7,8 +7,20 @@ services:
       - 3000:3000
     environment: 
       - PORT= 3000
+    depends_on:
+      - db
     command: bash -c "npm install && npm start"
 
+  db:
+    container_name: dev_db
+    volumes:
+      - "dbdata:/var/lib/mongodb/data"
+    environment: 
+      - MONGO_INITDB_ROOT_USERNAME=quizzlybearsdb
+      - MONGO_INITDB_DATABASE=quizzlybearsdb
+      - MONGO_INITDB_ROOT_PASSWORD = fbIm47RxHqnwUnbcx5zbGgkCTLIniJwZIC3DSHJajJwdwBuPr95Ywdr1wIKd0D5t1kPBccAG4784ACN5zDyYmQ%3D%3D
+volumes:
+  dbdata:
 networks: 
   default:
     name: app_dev

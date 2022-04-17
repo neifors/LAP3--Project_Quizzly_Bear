@@ -1,14 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const jwt = require("jsonwebtoken");
 
 const User= require('../models/User')
 
 
-// const { verifyToken } = require('../middleware/auth');
-
-// users index route
+// users index route 
 router.get('/', async (req, res) => {
   try {
       const users = await User.all

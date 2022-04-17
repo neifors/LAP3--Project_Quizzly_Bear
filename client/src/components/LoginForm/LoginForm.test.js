@@ -7,7 +7,7 @@ describe('LoginForm', () => {
 
     beforeEach(() => {
         getLoginMock = jest.fn();
-        render(<LoginForm />);
+        render(<LoginForm handleSubmit={getLoginMock} />);
     });
 
     test('it renders a form', () => {

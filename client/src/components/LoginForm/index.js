@@ -7,7 +7,7 @@ function LoginForm() {
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(e)
+        console.log({"username": username, "password": password})
     }
 
     const updateUsername = e => {

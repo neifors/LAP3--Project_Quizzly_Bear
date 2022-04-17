@@ -28,31 +28,43 @@
          <th>Operation</th>
          <th>Description</th>
          <th>Method</th>
+         <th>Request Body Expected</th>
          <th>Example</th>
       </tr>
       <tr>
          <td>To obtain all of the users information</td>
          <td class="route">/users</td>
          <td class="method">GET</td>
+         <td class="body"> N/A </td>
          <td class="example">https://quizzlybears.azurewebsites.net/users</td>
       </tr>
       <tr>
          <td>To obtain data set with a specific username</td>
-         <td class="route">/users/<strong>/username/:username</strong></td>
+         <td class="route">/users/<strong>username/:username</strong></td>
          <td class="method">GET</td>
+         <td class="body"> N/A </td>
          <td class="example">https://quizzlybears.azurewebsites.net/users/<strong>username/futureproof</strong></td>
       </tr>
       <tr>
          <td>To obtain data set with a specific id</td>
-         <td class="route">/users/<strong>/id/:id</strong></td>
+         <td class="route">/users/<strong>id/:id</strong></td>
          <td class="method">GET</td>
+         <td class="body"> N/A </td>
          <td class="example">https://quizzlybears.azurewebsites.net/users/<strong>id/625a90bb35a40d43d86054b4</strong></td>
       </tr>
       <tr>
          <td>To create a new user</td>
          <td class="route">/users/<strong>register</strong></td>
          <td class="method">POST</td>
+         <td class="body"> { username: "username", password: "password"} </td>
          <td class="example">https://quizzlybears.azurewebsites.net/users/<strong>register</strong></td>
+      </tr>
+      <tr>
+         <td>To login</td>
+         <td class="route">/users/<strong>login</strong></td>
+         <td class="method">POST</td>
+         <td class="body"> { username: "username", password: "password"} </td>
+         <td class="example">https://quizzlybears.azurewebsites.net/users/<strong>login</strong></td>
       </tr>
    </table>
 

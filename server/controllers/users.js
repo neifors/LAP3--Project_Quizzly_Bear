@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const jwt = require("jsonwebtoken")
+const env = require('dotenv');
+env.config()
 
 const User = require("../models/User")
 
@@ -31,7 +34,7 @@ router.get('/id/:id', (req, res) => {
 
     if (err) return res.status(500).send(err)
     return res.status(200).send(user)
-});
+  });
 })
 
 router.post('/register', async (req, res) => {
@@ -54,6 +57,30 @@ router.post('/register', async (req, res) => {
     console.log(saveUser)
     return res.status(201).send(saveUser);
   });
+
+})
+
+router.post('/login', async (req, res) => {
+// Check if the inputs are correct. If yes, login the user sending back a token containing the username 
+
+  try {
+    const foundUser = await User.find({username: req.body.username}, (err, user) => {
+      if (err) return (err)
+      return (user);
+    });
+    const correct= await bcrypt.compare(req.body.password.toString(), foundUser[0].password.toString());
+
+    if(correct){
+      const token= jwt.sign({username: foundUser.username}, process.env.SECRET)
+      return res.status(200).json({token: token, msg: "Login Successful"});
+    } else {
+      return res.status(403).json("Wrong password") //unauthorised http response
+    }
+
+  } catch(err){
+    console.log(err);
+    res.status(401).json({ err });
+  }
 
 })
 

@@ -38,9 +38,15 @@
       </tr>
       <tr>
          <td>To obtain data set with a specific username</td>
-         <td class="route">/users/<strong>username</strong></td>
+         <td class="route">/users/<strong>/username/:username</strong></td>
          <td class="method">GET</td>
-         <td class="example">https://quizzlybears.azurewebsites.net/users/<strong>futureproof</strong></td>
+         <td class="example">https://quizzlybears.azurewebsites.net/users/<strong>username/futureproof</strong></td>
+      </tr>
+      <tr>
+         <td>To obtain data set with a specific id</td>
+         <td class="route">/users/<strong>/id/:id</strong></td>
+         <td class="method">GET</td>
+         <td class="example">https://quizzlybears.azurewebsites.net/users/<strong>id/625a90bb35a40d43d86054b4</strong></td>
       </tr>
       <tr>
          <td>To create a new user</td>

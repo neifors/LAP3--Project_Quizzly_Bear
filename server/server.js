@@ -6,8 +6,11 @@ server.use(express.json());
 const path = require('path');
 
 
-const userRoutes = require("./controllers/users")
+const userRoutes = require("./controllers/users");
+const gameRoutes = require("./controllers/games");
+
 server.use("/users", userRoutes);
+server.use("/games", gameRoutes);
 
 const htmlIndexRoute = path.join(__dirname, '/src/template/index.html')
 const cssRoute = path.join(__dirname, '/src/template/index.css')

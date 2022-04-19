@@ -8,6 +8,8 @@ const Game = () => {
     const [questionIndex, setQuestionIndex] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState("");
     const [shuffled, setShuffled] = useState([]);
+    const [score, setScore] = useState(0);
+    const [numberCorrect, setNumberCorrect] = useState(0);
 
     async function startGame(event) {
         //https://opentdb.com/api.php?amount=10&category=9&difficulty=hard&type=multiple
@@ -102,6 +104,10 @@ const Game = () => {
         setShuffled(localShuffled);
     }
 
+    function submitAnswer() {
+
+    }
+
     function RenderQuestionButtons() {
         return (
             <>
@@ -109,7 +115,7 @@ const Game = () => {
             	<RenderQuestionButton answer={shuffled[1]} selectedAnswer={selectedAnswer} setSelectedAnswer={setSelectedAnswer} />
             	<RenderQuestionButton answer={shuffled[2]} selectedAnswer={selectedAnswer} setSelectedAnswer={setSelectedAnswer} />
             	<RenderQuestionButton answer={shuffled[3]} selectedAnswer={selectedAnswer} setSelectedAnswer={setSelectedAnswer} />
-                <button type="submit" value="Submit" id="quizSubmitButton">Next Question</button>
+                <button onClick={submitAnswer} type="submit" value="Submit" id="quizSubmitButton">Next Question</button>
             </>
         );
     }
@@ -129,6 +135,8 @@ const Game = () => {
         if (gameStarted) {
             return (
                 <>
+                    <p>Number Correct: {numberCorrect}</p>
+                    <p>Score: {score}</p>
                     <h1>{questionIndex + 1}. {currentQuestion.question}</h1>
                     <RenderQuestionButtons />
                 </>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StartGame } from '../../components';
+import { LeaderboardButton, StartGame } from '../../components';
 import './style.css';
 
 const LoggedIn = () => {
@@ -16,6 +16,7 @@ const LoggedIn = () => {
                 you have successfully logged in!</h2>
 
             <StartGame/>
+            <LeaderboardButton/>
 
         </section>
     )

@@ -3,7 +3,6 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken")
 const env = require('dotenv');
-const {verifyToken} = require("../middleware/verifyToken")
 env.config()
 
 const User = require("../models/User")

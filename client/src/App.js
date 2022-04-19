@@ -12,7 +12,7 @@ function App() {
                 </Route>
                 <Route path='/profile' element={<Pages.Profile />}>
                 </Route>
-                <Route path='/lobby' element={<Pages.Lobby />}>
+                <Route path='/register' element={<Pages.Register />}>
                 </Route>
                 <Route path='/game' element={<Pages.CurrentGame />}>
                 </Route>

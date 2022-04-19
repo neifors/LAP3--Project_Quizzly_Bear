@@ -10,7 +10,7 @@ function App() {
                 </Route>
                 <Route path='/login' element={<Pages.Login />}>
                 </Route>
-                <Route path='/welcome' element={<Pages.LoggedIn />}>
+                <Route path='/welcome' element={<Pages.Welcome />}>
                 </Route>
                 <Route path='/profile' element={<Pages.Profile />}>
                 </Route>

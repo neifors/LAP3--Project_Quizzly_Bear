@@ -92,6 +92,7 @@ router.post('/login', async (req, res) => {
         console.log(err);
         res.status(401).json({ err });
     }
+})
 
 router.put("/update", async (req, res) => {
     try {
@@ -120,6 +121,6 @@ router.delete("/delete", (req, res) => {
     }
 })
 
-})
+
 
 module.exports=router;

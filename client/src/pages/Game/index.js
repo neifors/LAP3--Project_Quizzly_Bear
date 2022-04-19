@@ -4,7 +4,7 @@ import './style.css'
 const Game = () => {
     const [gameStarted, setGameStarted] = useState(false);
     const [questions, setQuestions] = useState([]);
-    const [currentQuestion, setCurrentQuestion] = useState("");
+    const [currentQuestion, setCurrentQuestion] = useState();
     const [questionIndex, setQuestionIndex] = useState(0);
 
     function updateCurrentQuestion() {
@@ -42,8 +42,19 @@ const Game = () => {
             if (localQuestions.response_code != 0) {
                 throw 'Response code was not OK!';
             }
+
+            //remove horrible html tags from our questions that are recieved for some reason
+            const regex = /&\w+;/g;
+            for (let i of localQuestions.results) {
+                i.question = i.question.replace(regex, '');
+                i.correct_answer = i.correct_answer.replace(regex, '');
+                for (let j of i.incorrect_answers) {
+                    j = j.replace(regex, '');
+                }
+            }
+
             setQuestions(localQuestions.results);
-            setCurrentQuestion(localQuestions.results[0].question);
+            setCurrentQuestion(localQuestions.results[0]);
             console.log(localQuestions)
         } catch (error) {
             console.log(error);
@@ -53,11 +64,16 @@ const Game = () => {
         setGameStarted(true);
     }
 
+    function RenderQuestionButtons() {
+
+    }
+
     function RenderPage() {
         if (gameStarted) {
             return (
                 <>
-                <h1>{questionIndex + 1}. {currentQuestion}</h1>
+                    <h1>{questionIndex + 1}. {currentQuestion.question}</h1>
+                    <RenderQuestionButtons />
                 </>
             )
         } else {

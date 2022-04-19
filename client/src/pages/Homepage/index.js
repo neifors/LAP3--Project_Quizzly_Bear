@@ -7,7 +7,7 @@ const Homepage = () => {
 
     return (
     <section>
-    <img src='/images/QUIZZLY BEARS no background.png' alt='Quizzly Bears Logo'></img>
+    <img src='/images/QUIZZLY_BEARS_no_background.png' alt='Quizzly Bears Logo'></img>
     <button onClick={() => {goTo('/login')}}> LOGIN </button>
     <button onClick={() => {goTo('/login')}}> REGISTER </button>
     </section>

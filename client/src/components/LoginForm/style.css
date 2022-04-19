@@ -9,9 +9,12 @@ form {
 
 form input {
     margin: 0.5rem;
+    font-family: 'Rubik', sans-serif;
 }
 
 label {
+    font-family: 'Rubik', sans-serif;
+    font-weight: bold;
     text-align: center;
 }
 

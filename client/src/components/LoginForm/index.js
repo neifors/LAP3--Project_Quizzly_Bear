@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './style.css'
 
 function LoginForm() {
 
@@ -22,9 +23,11 @@ function LoginForm() {
 
     return (
         <form aria-label='form' onSubmit={handleSubmit}>
+            <label htmlFor='Username'>Username</label>
             <input aria-label="Username" type='text' onChange={updateUsername} />
+            <label htmlFor='Password'>Password</label>
             <input aria-label='Password' type='password' onChange={updatePassword} />
-            <input type='submit' value='Login' />
+            <input id='submit' type='submit' value='LOGIN' />
             </form>
     );
 };

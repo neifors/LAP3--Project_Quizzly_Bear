@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import './style.css'
 
 const Game = () => {
     const [gameStarted, setGameStarted] = useState(false);
@@ -25,14 +26,14 @@ const Game = () => {
                 <>
                 <h1>Welcome to Quizzly Bears🐻</h1>
                 <form onSubmit={startGame}>
-                    <label>Difficulty:
+                    <label id="difficultyLabel">Difficulty:
                     <select name="difficulty" id="difficulty">
                         <option value="easy">Easy</option>
                         <option value="medium">Medium</option>
                         <option value="hard">Hard</option>
                     </select><br />
                     </label>
-                    <label>Category:
+                    <label id="categoryLabel">Category:
                     <select name="category" id="category">
                         <option value="General Knowledge">General Knowledge</option>
                         <option value="Sports">Sports</option>

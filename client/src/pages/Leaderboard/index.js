@@ -1,10 +1,15 @@
 import React from 'react';
+import { getAllData } from '../../actions';
 
 const Leaderboard = () => {
+    
+    getAllData()
+
 
     return(
         <section>
-            <h1>This page is for the leaderboard</h1>
+            <h1>Leaderboard!</h1>
+            <p>See how you compare to other players!</p>
         </section>
     )
 }

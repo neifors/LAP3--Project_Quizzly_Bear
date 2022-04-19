@@ -26,11 +26,26 @@ export const registerFunction = async (e) => {
 
         const response = await axios.post('https://quizzlybears.azurewebsites.net/users/register', userData)
         const data = response.data
-        console(data)
+        console.log(data)
+
     } catch (err) {
         console.warn(err);
     }
 
+}
+
+export const getAllData = async () => {
+    try{
+        const response = await axios.get('https://quizzlybears.azurewebsites.net/users')
+        const data = response.data;
+        const sort= data.sort((a, b) => {
+            return b.score - a.score;
+        })
+        console.log(sort)
+
+    }catch(err){
+        console.warn(err)
+    }
 }
 
 
@@ -40,3 +55,4 @@ function login(data) {
     let userInfo = jwt(data.token)
     localStorage.setItem("username", userInfo.username)
 }
+

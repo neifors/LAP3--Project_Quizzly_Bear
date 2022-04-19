@@ -14,3 +14,8 @@ form {
 	display: inline-block;
 	margin: 0 auto;
 }
+
+#quizSubmitButton {
+	background-color: cornflowerblue;
+	margin-top: 50px;
+}

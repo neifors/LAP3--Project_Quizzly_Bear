@@ -6,6 +6,7 @@ const Game = () => {
     const [questions, setQuestions] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState();
     const [questionIndex, setQuestionIndex] = useState(0);
+    const [selectedAnswer, setSelectedAnswer] = useState("");
 
     function updateCurrentQuestion() {
     }
@@ -48,9 +49,11 @@ const Game = () => {
             for (let i of localQuestions.results) {
                 i.question = i.question.replace(regex, '');
                 i.correct_answer = i.correct_answer.replace(regex, '');
+                let arr = [];
                 for (let j of i.incorrect_answers) {
-                    j = j.replace(regex, '');
+                    arr.push(j.replace(regex, ''));
                 }
+                i.incorrect_answers = arr;
             }
 
             setQuestions(localQuestions.results);
@@ -65,7 +68,21 @@ const Game = () => {
     }
 
     function RenderQuestionButtons() {
-
+        console.log(currentQuestion)
+        let mergedAnswers = currentQuestion.incorrect_answers.concat(currentQuestion.correct_answer);
+        let shuffled = mergedAnswers
+            .map(value => ({ value, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(({ value }) => value)
+        return (
+            <>
+                <button type="button">{shuffled[0]}</button><br />
+                <button type="button">{shuffled[1]}</button><br />
+                <button type="button">{shuffled[2]}</button><br />
+                <button type="button">{shuffled[3]}</button><br />
+                <button type="submit" value="Submit" id="quizSubmitButton">Next Question</button>
+            </>
+        );
     }
 
     function RenderPage() {
@@ -97,7 +114,7 @@ const Game = () => {
                         <option value="Sports">Sports</option>
                         <option value="Animals">Animals</option>
                     </select></label>
-                    <input type="submit" value="Start the quiz!" />
+                    <button type="submit">Start the Quiz!</button>
                 </form>
                 </>
             )

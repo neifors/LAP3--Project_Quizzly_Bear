@@ -95,7 +95,7 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.put("/update", verifyToken, async (req, res) => {
+router.put("/update", async (req, res) => {
     try {
         User.updateOne({username: req.body.username}, 
             { $inc: { score: req.body.new_score } }, function (err, docs) {
@@ -109,7 +109,7 @@ router.put("/update", verifyToken, async (req, res) => {
     }
 })
 
-router.delete("/delete", verifyToken, (req, res) => {
+router.delete("/delete", (req, res) => {
     try {
         
         User.findOneAndDelete({ username: req.body.username }, function (err) {

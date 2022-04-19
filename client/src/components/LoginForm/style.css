@@ -13,12 +13,17 @@ form input {
 }
 
 label {
+    font-size: 1rem;
     font-family: 'Rubik', sans-serif;
     font-weight: bold;
     text-align: center;
 }
 
-.submit {
+p {
+    font-size: 1rem;
+}
+
+#submit {
     background-color: #fd6262;
     font-family: 'Rubik', sans-serif;
     font-weight: bold;
@@ -29,8 +34,4 @@ label {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     align-self: center;
-}
-
-.clickable:hover {
-    cursor: pointer;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoginForm } from '../../components';
+import { BackButton, LoginForm } from '../../components';
 import './style.css'
 
 const Login = () => {
@@ -9,6 +9,7 @@ const Login = () => {
     <h1>This is the page for the Login!</h1>
 
     <LoginForm />
+    <BackButton />
     </section>
     )
 }

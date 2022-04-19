@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
 
 const Game = () => {
+    const [difficulty, setDifficulty] = useState("easy");
+    const [category, setCategory] = useState("General Knowledge");
     const [gameStarted, setGameStarted] = useState(false);
     const [question, setQuestion] = useState("");
 
     function updateQuestion() {
     }
 
-    function startGame() {
+    function startGame(event) {
+        event.preventDefault();
         setQuestion("yoarstarst");
         setGameStarted(true);
     }
@@ -29,7 +32,7 @@ const Game = () => {
                         <option value="easy">Easy</option>
                         <option value="medium">Medium</option>
                         <option value="hard">Hard</option>
-                    </select>
+                    </select><br />
                     <label for="category">Category:</label>
                     <select name="category" id="category">
                         <option value="General Knowledge">General Knowledge</option>

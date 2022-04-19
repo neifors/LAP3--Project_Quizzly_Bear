@@ -45,7 +45,7 @@ const Game = () => {
             }
 
             //remove horrible html tags from our questions that are recieved for some reason
-            const regex = /&\w+;/g;
+            const regex = /&#?\w+;/g;
             for (let i of localQuestions.results) {
                 i.question = i.question.replace(regex, '');
                 i.correct_answer = i.correct_answer.replace(regex, '');
@@ -70,16 +70,25 @@ const Game = () => {
     class RenderQuestionButton extends React.Component {
         constructor(props) {
             super(props);
+            this.state = {
+                answer: props.answer,
+                selectedAnswer: props.selectedAnswer
+            }
         }
 
         quizAnswerClick() {
-            console.log('astarts')
+            //setSelectedAnswer(this.state.answer);
+            console.log(this.state.selectedAnswer)
         }
 
         render() {
+            let classes = '';
+            if (this.state.selectedAnswer === this.state.answer) {
+                classes = '"selectedAnswer"';
+            }
             return (
                 <>
-                    <button onClick={this.quizAnswerClick} type="button">{this.props.answer}</button><br />
+                    <button onClick={this.quizAnswerClick} className={classes} type="button">{this.state.answer}</button><br />
                 </>
             )
         }
@@ -94,10 +103,10 @@ const Game = () => {
             .map(({ value }) => value)
         return (
             <>
-            	<RenderQuestionButton answer={shuffled[0]} />
-            	<RenderQuestionButton answer={shuffled[1]} />
-            	<RenderQuestionButton answer={shuffled[2]} />
-            	<RenderQuestionButton answer={shuffled[3]} />
+            	<RenderQuestionButton onClick={setSelectedAnswer(0)} answer={shuffled[0]} selectedAnswer={selectedAnswer}/>
+            	<RenderQuestionButton onClick={setSelectedAnswer(1)} answer={shuffled[1]} selectedAnswer={selectedAnswer}/>
+            	<RenderQuestionButton onClick={setSelectedAnswer(2)} answer={shuffled[2]} selectedAnswer={selectedAnswer}/>
+            	<RenderQuestionButton onClick={setSelectedAnswer(3)} answer={shuffled[3]} selectedAnswer={selectedAnswer}/>
                 <button type="submit" value="Submit" id="quizSubmitButton">Next Question</button>
             </>
         );

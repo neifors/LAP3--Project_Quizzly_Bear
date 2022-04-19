@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken")
 const env = require('dotenv');
+const {verifyToken} = require("../middleware/verifyToken")
 env.config()
 
 const User = require("../models/User")
@@ -94,7 +95,7 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.put("/update", async (req, res) => {
+router.put("/update", verifyToken, async (req, res) => {
     try {
         User.updateOne({username: req.body.username}, 
             { $inc: { score: req.body.new_score } }, function (err, docs) {
@@ -108,7 +109,7 @@ router.put("/update", async (req, res) => {
     }
 })
 
-router.delete("/delete", (req, res) => {
+router.delete("/delete", verifyToken, (req, res) => {
     try {
         
         User.findOneAndDelete({ username: req.body.username }, function (err) {

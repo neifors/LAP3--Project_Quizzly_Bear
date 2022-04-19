@@ -1,0 +1,12 @@
+version: '3'
+services:
+  server:
+    container_name: debug_test_api
+    working_dir: /code
+
+    command: bash -c "npm install && npm test"
+    tty: true
+
+networks: 
+  default:
+    name: debug_test

@@ -3,14 +3,39 @@ import './style.css'
 
 const Game = () => {
     const [gameStarted, setGameStarted] = useState(false);
-    const [question, setQuestion] = useState("");
+    const [questions, setQuestions] = useState([]);
+    const [currentQuestion, setCurrentQuestion] = useState("");
 
-    function updateQuestion() {
+    function updateCurrentQuestion() {
     }
 
     function startGame(event) {
+        //https://opentdb.com/api.php?amount=10&category=9&difficulty=hard&type=multiple
         event.preventDefault();
-        setQuestion("yoarstarst");
+        let parsedCategory;
+        switch (event.target.category.value) {
+            case 'General Knowledge':
+                parsedCategory = 9;
+                break;
+            case 'Sports':
+                parsedCategory = 21;
+                break;
+            case 'History':
+                parsedCategory = 23;
+                break;
+            case 'Geography':
+                parsedCategory = 22;
+                break;
+            case 'Animals':
+                parsedCategory = 27;
+                break;
+            case 'Science & Nature':
+                parsedCategory = 17;
+                break;
+        }
+        let url = `https://opentdb.com/api.php?amount=10&type=multiple&difficulty=${event.target.difficulty.value}&category=${parsedCategory}`;
+        console.log(url)
+        setQuestions();
         setGameStarted(true);
     }
 
@@ -18,7 +43,7 @@ const Game = () => {
         if (gameStarted) {
             return (
                 <>
-                <h1>{question}</h1>
+                <h1>{currentQuestion}</h1>
                 </>
             )
         } else {
@@ -36,9 +61,10 @@ const Game = () => {
                     <label id="categoryLabel">Category:
                     <select name="category" id="category">
                         <option value="General Knowledge">General Knowledge</option>
-                        <option value="Sports">Sports</option>
                         <option value="History">History</option>
+                        <option value="Science & Nature">Science & Nature</option>
                         <option value="Geography">Geography</option>
+                        <option value="Sports">Sports</option>
                         <option value="Animals">Animals</option>
                     </select></label>
                     <input type="submit" value="Start the quiz!" />

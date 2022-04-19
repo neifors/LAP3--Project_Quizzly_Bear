@@ -1,0 +1,16 @@
+#difficultyLabel, #categoryLabel {
+	margin: 20px;
+}
+
+#difficulty, #category {
+	margin-left: 5px;
+}
+
+body {
+	text-align: center;
+}
+
+form {
+	display: inline-block;
+	margin: 0 auto;
+}

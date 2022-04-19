@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginFunction } from "../../actions";
+import { registerFunction } from "../../actions";
 import './style.css'
 
-function LoginForm() {
+function RegisterForm() {
 
     const goTo = useNavigate();
 
@@ -12,8 +12,8 @@ function LoginForm() {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        await loginFunction(e);
-        goTo('/welcome')      
+        await registerFunction(e);
+        goTo('/welcome')          
     }
 
     const updateUsername = e => {
@@ -32,10 +32,10 @@ function LoginForm() {
             <input aria-label="Username" name="username" type='text' onChange={updateUsername} />
             <label htmlFor='Password'>Password</label>
             <input aria-label='Password' name="password" type='password' onChange={updatePassword} />
-            <input className='submit' type='submit' value='LOGIN' />
-            <p className='clickable' onClick={() => goTo('/register')}>Don't have an account yet? Register here!</p>
+            <input className='submit' type='submit' value='REGISTER' />
+            <p className="clickable" onClick={() => goTo('/login')}>Already have an account? Click here to login!</p>
             </form>
     );
 };
 
-export default LoginForm;
+export default RegisterForm;

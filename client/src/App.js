@@ -10,11 +10,15 @@ function App() {
                 </Route>
                 <Route path='/login' element={<Pages.Login />}>
                 </Route>
+                <Route path='/welcome' element={<Pages.Welcome />}>
+                </Route>
                 <Route path='/profile' element={<Pages.Profile />}>
                 </Route>
-                <Route path='/lobby' element={<Pages.Lobby />}>
+                <Route path='/register' element={<Pages.Register />}>
                 </Route>
                 <Route path='/game' element={<Pages.CurrentGame />}>
+                </Route>
+                <Route path='/leaderboard' element={<Pages.Leaderboard />}>
                 </Route>
             </Routes>
         </main>

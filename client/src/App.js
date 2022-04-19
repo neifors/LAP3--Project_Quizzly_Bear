@@ -10,6 +10,8 @@ function App() {
                 </Route>
                 <Route path='/login' element={<Pages.Login />}>
                 </Route>
+                <Route path='/welcome' element={<Pages.LoggedIn />}>
+                </Route>
                 <Route path='/profile' element={<Pages.Profile />}>
                 </Route>
                 <Route path='/lobby' element={<Pages.Lobby />}>

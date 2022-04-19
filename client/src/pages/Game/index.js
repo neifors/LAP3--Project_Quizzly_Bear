@@ -10,6 +10,8 @@ const Game = () => {
     const [shuffled, setShuffled] = useState([]);
     const [score, setScore] = useState(0);
     const [numberCorrect, setNumberCorrect] = useState(0);
+    const [difficulty, setDifficulty] = useState("");
+    const [category, setCategory] = useState("");
 
     async function startGame(event) {
         //https://opentdb.com/api.php?amount=10&category=9&difficulty=hard&type=multiple
@@ -57,6 +59,10 @@ const Game = () => {
             }
             //set the whole array for all the questions that will be asked
             setQuestions(localQuestions.results);
+            //set global difficulty and category so we can change scores awarded appropriately
+            //and send back relevant category to the server later
+            setDifficulty(event.target.difficulty.value);
+            setCategory(event.target.category.value);
 
             setCurrentQuestion(localQuestions.results[0]);
         } catch (error) {
@@ -105,7 +111,20 @@ const Game = () => {
     }
 
     function submitAnswer() {
-
+        if (selectedAnswer === currentQuestion.correct_answer) {
+            switch (difficulty) {
+                case 'easy':
+                    setScore(score + 1);
+                    break;
+                case 'medium':
+                    setScore(score + 2);
+                    break;
+                case 'hard':
+                    setScore(score + 4);
+                    break;
+            }
+        }
+        setNumberCorrect(numberCorrect + 1);
     }
 
     function RenderQuestionButtons() {

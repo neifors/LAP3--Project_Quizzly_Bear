@@ -67,6 +67,24 @@ const Game = () => {
         setGameStarted(true);
     }
 
+    class RenderQuestionButton extends React.Component {
+        constructor(props) {
+            super(props);
+        }
+
+        quizAnswerClick() {
+            console.log('astarts')
+        }
+
+        render() {
+            return (
+                <>
+                    <button onClick={this.quizAnswerClick} type="button">{this.props.answer}</button><br />
+                </>
+            )
+        }
+    }
+
     function RenderQuestionButtons() {
         console.log(currentQuestion)
         let mergedAnswers = currentQuestion.incorrect_answers.concat(currentQuestion.correct_answer);
@@ -76,10 +94,10 @@ const Game = () => {
             .map(({ value }) => value)
         return (
             <>
-                <button type="button">{shuffled[0]}</button><br />
-                <button type="button">{shuffled[1]}</button><br />
-                <button type="button">{shuffled[2]}</button><br />
-                <button type="button">{shuffled[3]}</button><br />
+            	<RenderQuestionButton answer={shuffled[0]} />
+            	<RenderQuestionButton answer={shuffled[1]} />
+            	<RenderQuestionButton answer={shuffled[2]} />
+            	<RenderQuestionButton answer={shuffled[3]} />
                 <button type="submit" value="Submit" id="quizSubmitButton">Next Question</button>
             </>
         );

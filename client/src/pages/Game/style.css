@@ -19,3 +19,7 @@ form {
 	background-color: cornflowerblue;
 	margin-top: 50px;
 }
+
+.selectedAnswer {
+	background-color: rgb(0, 156, 0);
+}

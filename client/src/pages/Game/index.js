@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './style.css'
 
 const Game = () => {
@@ -7,9 +7,7 @@ const Game = () => {
     const [currentQuestion, setCurrentQuestion] = useState();
     const [questionIndex, setQuestionIndex] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState("");
-
-    function updateCurrentQuestion() {
-    }
+    const [shuffled, setShuffled] = useState([]);
 
     async function startGame(event) {
         //https://opentdb.com/api.php?amount=10&category=9&difficulty=hard&type=multiple
@@ -55,8 +53,9 @@ const Game = () => {
                 }
                 i.incorrect_answers = arr;
             }
-
+            //set the whole array for all the questions that will be asked
             setQuestions(localQuestions.results);
+
             setCurrentQuestion(localQuestions.results[0]);
             console.log(localQuestions)
         } catch (error) {
@@ -72,13 +71,15 @@ const Game = () => {
             super(props);
             this.state = {
                 answer: props.answer,
-                selectedAnswer: props.selectedAnswer
+                selectedAnswer: props.selectedAnswer,
+                setSelectedAnswer: props.setSelectedAnswer
             }
+            this.quizAnswerClick = this.quizAnswerClick.bind(this);
         }
 
         quizAnswerClick() {
-            //setSelectedAnswer(this.state.answer);
             console.log(this.state.selectedAnswer)
+            this.state.setSelectedAnswer(this.state.answer);
         }
 
         render() {
@@ -94,23 +95,37 @@ const Game = () => {
         }
     }
 
-    function RenderQuestionButtons() {
-        console.log(currentQuestion)
+    function shuffleAnswers() {
         let mergedAnswers = currentQuestion.incorrect_answers.concat(currentQuestion.correct_answer);
-        let shuffled = mergedAnswers
+        let localShuffled = mergedAnswers
             .map(value => ({ value, sort: Math.random() }))
             .sort((a, b) => a.sort - b.sort)
             .map(({ value }) => value)
+        setShuffled(localShuffled);
+    }
+
+    function RenderQuestionButtons() {
+        console.log(currentQuestion)
         return (
             <>
-            	<RenderQuestionButton onClick={setSelectedAnswer(0)} answer={shuffled[0]} selectedAnswer={selectedAnswer}/>
-            	<RenderQuestionButton onClick={setSelectedAnswer(1)} answer={shuffled[1]} selectedAnswer={selectedAnswer}/>
-            	<RenderQuestionButton onClick={setSelectedAnswer(2)} answer={shuffled[2]} selectedAnswer={selectedAnswer}/>
-            	<RenderQuestionButton onClick={setSelectedAnswer(3)} answer={shuffled[3]} selectedAnswer={selectedAnswer}/>
+            	<RenderQuestionButton answer={shuffled[0]} selectedAnswer={selectedAnswer} setSelectedAnswer={setSelectedAnswer} />
+            	<RenderQuestionButton answer={shuffled[1]} selectedAnswer={selectedAnswer} setSelectedAnswer={setSelectedAnswer} />
+            	<RenderQuestionButton answer={shuffled[2]} selectedAnswer={selectedAnswer} setSelectedAnswer={setSelectedAnswer} />
+            	<RenderQuestionButton answer={shuffled[3]} selectedAnswer={selectedAnswer} setSelectedAnswer={setSelectedAnswer} />
                 <button type="submit" value="Submit" id="quizSubmitButton">Next Question</button>
             </>
         );
     }
+
+    useEffect(() => {
+        if (gameStarted) {
+            shuffleAnswers();
+        }
+    }, [currentQuestion])
+
+    useEffect(() => {
+        RenderQuestionButtons();
+    }, [shuffled])
 
     function RenderPage() {
         if (gameStarted) {

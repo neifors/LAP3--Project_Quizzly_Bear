@@ -5,6 +5,7 @@ const Game = () => {
     const [gameStarted, setGameStarted] = useState(false);
     const [questions, setQuestions] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState("");
+    const [questionIndex, setQuestionIndex] = useState(0);
 
     function updateCurrentQuestion() {
     }
@@ -33,7 +34,7 @@ const Game = () => {
                 parsedCategory = 17;
                 break;
         }
-        let url = `http://opentdb.com/api.php?amount=0&type=multiple&difficulty=${event.target.difficulty.value}&category=${parsedCategory}`;
+        let url = `http://opentdb.com/api.php?amount=10&type=multiple&difficulty=${event.target.difficulty.value}&category=${parsedCategory}`;
         let localQuestions;
         try {
             const questionsJson = await fetch(url);
@@ -41,7 +42,8 @@ const Game = () => {
             if (localQuestions.response_code != 0) {
                 throw 'Response code was not OK!';
             }
-            setQuestions(localQuestions);
+            setQuestions(localQuestions.results);
+            setCurrentQuestion(localQuestions.results[0].question);
             console.log(localQuestions)
         } catch (error) {
             console.log(error);
@@ -55,7 +57,7 @@ const Game = () => {
         if (gameStarted) {
             return (
                 <>
-                <h1>{currentQuestion}</h1>
+                <h1>{questionIndex + 1}. {currentQuestion}</h1>
                 </>
             )
         } else {

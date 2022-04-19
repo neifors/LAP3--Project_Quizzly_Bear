@@ -40,23 +40,34 @@ router.get('/id/:id', (req, res) => {
 
 router.post('/register', async (req, res) => {
 // Create a new user
-    
-    // Proccess to hash the password using bcryptjs 
-    const salt = await bcrypt.genSalt();
-    const hashed = await bcrypt.hash(req.body.password, salt)
+    try {
 
-    // Object User with the username, the hashed password and an empty lists of games.
-    const user = new User({
-    username: req.body.username,
-    password: hashed ,
-    score: 0
-    });
+        const foundUser = await User.find({username: req.body.username}, (err, user) => {
+            if (err) return (err)
+            return (user);
+        });
 
-    // This is the way we save the object above into de database returning the new user if there is no error
-    user.save((err, saveUser) => {
-        if (err) return res.status(500).json({err: err});
-        return res.status(201).json({user: saveUser, msg: "Register Successful"});
-    });
+        if (foundUser.length) throw new Error("User already exist")
+
+        // Proccess to hash the password using bcryptjs 
+        const salt = await bcrypt.genSalt();
+        const hashed = await bcrypt.hash(req.body.password, salt)
+
+        // Object User with the username, the hashed password and an empty lists of games.
+        const user = new User({
+        username: req.body.username,
+        password: hashed ,
+        score: 0
+        });
+
+        // This is the way we save the object above into de database returning the new user if there is no error
+        user.save((err, saveUser) => {
+            if (err) return res.status(500).json({err: err});
+            return res.status(201).json({user: saveUser, msg: "Register Successful"});
+        });
+    }catch(e){
+        return res.status(302).json({err: e});
+    }
 
 })
 

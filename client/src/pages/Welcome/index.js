@@ -4,17 +4,13 @@ import './style.css';
 
 const Welcome = () => {
 
-    //can uncomment code below to retireve username once log-in has been set-up
-
-    // const user = JSON.parse(window.localStorage.getItem('user'));
-    // const username = user.username
+    const username = localStorage.getItem('username')
+    const dislpayName = username.charAt(0).toUpperCase() + username.slice(1);
     
     return (
         <>
             <section>
-                <h2>Welcome 
-                    {/* {username}  */}
-                    !</h2>
+                <h2>Welcome {dislpayName}!</h2>
 
                 <StartGame/>
                 <LeaderboardButton/>

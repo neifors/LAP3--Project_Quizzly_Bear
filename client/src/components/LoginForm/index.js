@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginFunction } from "../../actions";
 import './style.css'
@@ -10,10 +10,10 @@ function LoginForm() {
     const [ username, setUsername ] = useState();
     const [ password, setPassword ] = useState();
 
-    const handleSubmit = e => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        loginFunction(e);
-        goTo('/profile')       
+        await loginFunction(e);
+        goTo('/welcome')      
     }
 
     const updateUsername = e => {

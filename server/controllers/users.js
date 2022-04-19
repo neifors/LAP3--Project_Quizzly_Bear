@@ -82,7 +82,7 @@ router.post('/login', async (req, res) => {
         const correct= await bcrypt.compare(req.body.password.toString(), foundUser[0].password.toString());
 
         if(correct){
-            const token= jwt.sign({username: foundUser.username}, process.env.SECRET)
+            const token= jwt.sign({username: req.body.username}, process.env.SECRET)
             return res.status(200).json({token: token, msg: "Login Successful"});
         } else {
             return res.status(403).json({err: "Wrong password"}) //unauthorised http response
@@ -92,6 +92,33 @@ router.post('/login', async (req, res) => {
         console.log(err);
         res.status(401).json({ err });
     }
+
+router.put("/update", async (req, res) => {
+    try {
+        const new_score = req.body.new_score
+        const user_to_update = await User.find({username: req.body.username}, (err, user) => {
+            if (err) return (err)
+            return (user);
+        });
+
+ 
+    }catch(e){
+
+    }
+})
+
+router.delete("/delete", (req, res) => {
+    try {
+        
+        User.findOneAndDelete({ username: req.body.username }, function (err) {
+            if(err) console.log(err);
+            console.log("Successful deletion");
+          });
+          
+    }catch(e){
+        res.status(401).json({ e });
+    }
+})
 
 })
 

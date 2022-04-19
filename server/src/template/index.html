@@ -32,7 +32,7 @@
          <th>Example</th>
       </tr>
       <tr>
-         <td>To obtain all of the users information</td>
+         <td>To obtain all of the users information (id, username & score)</td>
          <td class="route">/users</td>
          <td class="method">GET</td>
          <td class="body"> N/A </td>
@@ -65,6 +65,20 @@
          <td class="method">POST</td>
          <td class="body"> { username: "username", password: "password"} </td>
          <td class="example">https://quizzlybears.azurewebsites.net/users/<strong>login</strong></td>
+      </tr>
+      <tr>
+         <td>To update a user score</td>
+         <td class="route">/users/<strong>update</strong></td>
+         <td class="method">PUT</td>
+         <td class="body"> { username: "username", new_score: -- (number)} </td>
+         <td class="example">https://quizzlybears.azurewebsites.net/users/<strong>update</strong></td>
+      </tr>
+      <tr>
+         <td>To delete a user</td>
+         <td class="route">/users/<strong>delete</strong></td>
+         <td class="method">DELETE</td>
+         <td class="body"> { username: "username" } </td>
+         <td class="example">https://quizzlybears.azurewebsites.net/users/<strong>delete</strong></td>
       </tr>
    </table>
 

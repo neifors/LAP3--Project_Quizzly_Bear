@@ -18,6 +18,8 @@ function App() {
                 </Route>
                 <Route path='/game' element={<Pages.CurrentGame />}>
                 </Route>
+                <Route path='/leaderboard' element={<Pages.Leaderboard />}>
+                </Route>
             </Routes>
         </main>
     )

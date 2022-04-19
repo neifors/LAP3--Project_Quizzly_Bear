@@ -34,14 +34,14 @@ export const registerFunction = async (e) => {
 
 }
 
-export const getAllData = async () => {
+export const getLeaderboardData = async () => {
     try{
         const response = await axios.get('https://quizzlybears.azurewebsites.net/users')
         const data = response.data;
         const sort= data.sort((a, b) => {
             return b.score - a.score;
         })
-        console.log(sort)
+        return sort;
 
     }catch(err){
         console.warn(err)

@@ -1,0 +1,15 @@
+version: '3'
+services:
+  server:
+    container_name: dev_api
+    working_dir: /code
+    ports: 
+      - 3000:3000
+    environment: 
+      - PORT= 3000
+
+    command: bash -c "npm install && npm start"
+
+networks: 
+  default:
+    name: app_dev

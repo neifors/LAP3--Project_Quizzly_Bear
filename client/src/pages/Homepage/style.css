@@ -13,7 +13,7 @@ section {
 }
 
 img {
-    width: 50vw;
+    max-width: 350px;
     align-self: center;
 }
 
@@ -23,9 +23,10 @@ button {
     font-weight: bold;
     color: #E9ECDE;
     border-radius: 20px;
-    width: 25vw;
-    height: 5vh;
-    margin: 0.5%;
+    min-width: 250px;
+    min-height: 35px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     align-self: center;
 }
 

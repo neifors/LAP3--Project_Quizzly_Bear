@@ -37,7 +37,6 @@ export const registerFunction = async (e) => {
 // helpers
 
 function login(data) {
-    console.log(data.token)
-    localStorage.setItem("user-token", data.token)
-    console.log(jwt(data.token))
+    let userInfo = jwt(data.token)
+    localStorage.setItem("username", userInfo.username)
 }

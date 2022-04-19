@@ -66,6 +66,7 @@ router.post('/register', async (req, res) => {
             return res.status(201).json({user: saveUser, msg: "Register Successful"});
         });
     }catch(e){
+        // 302 Found (that means the username is being found and needs to be unique)
         return res.status(302).json({err: e});
     }
 
@@ -89,22 +90,21 @@ router.post('/login', async (req, res) => {
         }
 
     } catch(err){
-        console.log(err);
         res.status(401).json({ err });
     }
 })
 
 router.put("/update", async (req, res) => {
     try {
-        const new_score = req.body.new_score
-        const user_to_update = await User.find({username: req.body.username}, (err, user) => {
-            if (err) return (err)
-            return (user);
+        User.updateOne({username: req.body.username}, 
+            { $inc: { score: req.body.new_score } }, function (err, docs) {
+            if (err) return res.status(500).json({err: err});
+            return res.status(200).json({msg: `Update score of user ${req.body.username}: Successful`});
         });
-
  
     }catch(e){
-
+        // 304 Not modified
+        res.status(304).json({ e });
     }
 })
 
@@ -112,8 +112,8 @@ router.delete("/delete", (req, res) => {
     try {
         
         User.findOneAndDelete({ username: req.body.username }, function (err) {
-            if(err) console.log(err);
-            console.log("Successful deletion");
+            if(err) return res.status(500).json({err: err});
+            return res.status(200).json({msg: `Delete user ${req.body.username}: Successful`});
           });
           
     }catch(e){

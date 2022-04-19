@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 
 const Game = () => {
-    const [difficulty, setDifficulty] = useState("easy");
-    const [category, setCategory] = useState("General Knowledge");
     const [gameStarted, setGameStarted] = useState(false);
     const [question, setQuestion] = useState("");
 
@@ -27,20 +25,21 @@ const Game = () => {
                 <>
                 <h1>Welcome to Quizzly Bears🐻</h1>
                 <form onSubmit={startGame}>
-                    <label for="difficulty">Difficulty:</label>
+                    <label>Difficulty:
                     <select name="difficulty" id="difficulty">
                         <option value="easy">Easy</option>
                         <option value="medium">Medium</option>
                         <option value="hard">Hard</option>
                     </select><br />
-                    <label for="category">Category:</label>
+                    </label>
+                    <label>Category:
                     <select name="category" id="category">
                         <option value="General Knowledge">General Knowledge</option>
                         <option value="Sports">Sports</option>
                         <option value="History">History</option>
                         <option value="Geography">Geography</option>
                         <option value="Animals">Animals</option>
-                    </select>
+                    </select></label>
                     <input type="submit" value="Start the quiz!" />
                 </form>
                 </>

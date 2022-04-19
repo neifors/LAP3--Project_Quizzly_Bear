@@ -10,7 +10,7 @@ const User = require("../models/User")
 router.get('/', async (req, res) => {
 // Return a list of all users information apart from the password
 
-    User.find({}, ['username', 'games'], (err, users) => {
+    User.find({}, ['username', 'score'], (err, users) => {
         // Note that this error doesn't mean nothing was found,
         // it means the database had an error while searching, hence the 500 status
         if (err) return res.status(500).send(err)
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 router.get('/username/:username', async (req, res) => {
 // Return a user info by username (no password)
 
-    User.find({username: req.params.username}, ['username', 'games'], (err, users) => {
+    User.find({username: req.params.username}, ['username', 'score'], (err, users) => {
         if (err) return res.status(500).send(err)
         return res.status(200).send(users);
     });
@@ -31,7 +31,7 @@ router.get('/username/:username', async (req, res) => {
 router.get('/id/:id', (req, res) => {
 // Return a user info by id (no password)
 
-    User.findById(req.params.id, ['username', 'games'],  (err, user) => {
+    User.findById(req.params.id, ['username', 'score'],  (err, user) => {
 
         if (err) return res.status(500).send(err)
         return res.status(200).send(user)
@@ -40,7 +40,7 @@ router.get('/id/:id', (req, res) => {
 
 router.post('/register', async (req, res) => {
 // Create a new user
-
+    
     // Proccess to hash the password using bcryptjs 
     const salt = await bcrypt.genSalt();
     const hashed = await bcrypt.hash(req.body.password, salt)
@@ -49,7 +49,7 @@ router.post('/register', async (req, res) => {
     const user = new User({
     username: req.body.username,
     password: hashed ,
-    games: []
+    score: 0
     });
 
     // This is the way we save the object above into de database returning the new user if there is no error

@@ -57,7 +57,6 @@ const Game = () => {
             setQuestions(localQuestions.results);
 
             setCurrentQuestion(localQuestions.results[0]);
-            console.log(localQuestions)
         } catch (error) {
             console.log(error);
             console.log(localQuestions);
@@ -78,14 +77,13 @@ const Game = () => {
         }
 
         quizAnswerClick() {
-            console.log(this.state.selectedAnswer)
-            this.state.setSelectedAnswer(this.state.answer);
+            this.state.setSelectedAnswer(this.state.answer, this.forceUpdate());
         }
 
         render() {
             let classes = '';
             if (this.state.selectedAnswer === this.state.answer) {
-                classes = '"selectedAnswer"';
+                classes = 'selectedAnswer';
             }
             return (
                 <>
@@ -105,7 +103,6 @@ const Game = () => {
     }
 
     function RenderQuestionButtons() {
-        console.log(currentQuestion)
         return (
             <>
             	<RenderQuestionButton answer={shuffled[0]} selectedAnswer={selectedAnswer} setSelectedAnswer={setSelectedAnswer} />
@@ -124,6 +121,7 @@ const Game = () => {
     }, [currentQuestion])
 
     useEffect(() => {
+        console.log(currentQuestion)
         RenderQuestionButtons();
     }, [shuffled])
 

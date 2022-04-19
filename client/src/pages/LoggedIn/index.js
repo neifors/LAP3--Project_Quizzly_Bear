@@ -1,4 +1,5 @@
 import React from 'react';
+import { StartGame } from '../../components';
 import './style.css';
 
 const LoggedIn = () => {
@@ -10,7 +11,11 @@ const LoggedIn = () => {
     
     return (
         <section>
-            <h2>Hi {username} you have successfully logged in!</h2>
+            <h2>Hi 
+                {/* {username}  */}
+                you have successfully logged in!</h2>
+
+            <StartGame/>
 
         </section>
     )

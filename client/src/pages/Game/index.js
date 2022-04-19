@@ -9,7 +9,7 @@ const Game = () => {
     function updateCurrentQuestion() {
     }
 
-    function startGame(event) {
+    async function startGame(event) {
         //https://opentdb.com/api.php?amount=10&category=9&difficulty=hard&type=multiple
         event.preventDefault();
         let parsedCategory;
@@ -33,9 +33,21 @@ const Game = () => {
                 parsedCategory = 17;
                 break;
         }
-        let url = `https://opentdb.com/api.php?amount=10&type=multiple&difficulty=${event.target.difficulty.value}&category=${parsedCategory}`;
-        console.log(url)
-        setQuestions();
+        let url = `http://opentdb.com/api.php?amount=0&type=multiple&difficulty=${event.target.difficulty.value}&category=${parsedCategory}`;
+        let localQuestions;
+        try {
+            const questionsJson = await fetch(url);
+            localQuestions = await questionsJson.json();
+            if (localQuestions.response_code != 0) {
+                throw 'Response code was not OK!';
+            }
+            setQuestions(localQuestions);
+            console.log(localQuestions)
+        } catch (error) {
+            console.log(error);
+            console.log(localQuestions);
+            setCurrentQuestion("Error! See the console for details")
+        }
         setGameStarted(true);
     }
 

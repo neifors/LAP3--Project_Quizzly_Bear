@@ -7,14 +7,17 @@ function RegisterForm() {
 
     const goTo = useNavigate();
 
+    const [errorMessage, setErrorMessage] = useState();
     const [ username, setUsername ] = useState();
     const [ password, setPassword ] = useState();
 
     const handleSubmit = async(e) => {
         e.preventDefault();
+        setErrorMessage('')
         await registerFunction(e);
         await loginFunction(e);
-        goTo('/welcome')          
+        if(localStorage.length){goTo('/welcome')}
+        else { setErrorMessage('User already exists!') }        
     }
 
     const updateUsername = e => {
@@ -29,6 +32,9 @@ function RegisterForm() {
 
     return (
         <form aria-label='form' onSubmit={handleSubmit}>
+             {errorMessage && (
+                <p className="error"> {errorMessage} </p>
+            )}
             <label htmlFor='Username'>Username</label>
             <input aria-label="Username" name="username" type='text' onChange={updateUsername} />
             <label htmlFor='Password'>Password</label>

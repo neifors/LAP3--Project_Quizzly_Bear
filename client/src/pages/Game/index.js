@@ -157,6 +157,7 @@ const Game = () => {
     useEffect(() => {
         if (gameStarted) {
             shuffleAnswers();
+            resetTimer();
         }
     }, [currentQuestion])
 
@@ -165,23 +166,26 @@ const Game = () => {
         RenderQuestionButtons();
     }, [shuffled])
 
+    function handleTimerAdvance() {
+        if (document.querySelector("#secondsTimer")) {
+            submitAnswer();
+        }
+    }
+
     function Timer() {
         const renderer = ({seconds}) => (
-            <>
-            <span>
-              {seconds}
-            </span>
-            </>
+            <span id="secondsTimer">{seconds - 1}</span>
         )
+
         return (
             <>
-            <p>Time: <Countdown date={expiryTime} renderer={renderer} /></p>
+            <p>Time: <Countdown date={expiryTime} renderer={renderer} onComplete={handleTimerAdvance} /></p>
             </>
         )
     }
 
     function resetTimer() {
-        setExpiryTime(Date.now() + 30000);
+        setExpiryTime(Date.now() + 21000);
     }
 
     function QuestionTitle() {

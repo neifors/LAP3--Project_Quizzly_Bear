@@ -13,7 +13,6 @@ const Game = () => {
     const [shuffled, setShuffled] = useState([]);
     const [score, setScore] = useState(0);
     const [numberCorrect, setNumberCorrect] = useState(0);
-    const [difficulty, setDifficulty] = useState("");
     const [category, setCategory] = useState("");
     const [expiryTime, setExpiryTime] = useState();
     const [secondsLeft, setSecondsLeft] = useState(20);
@@ -42,7 +41,10 @@ const Game = () => {
                 parsedCategory = 17;
                 break;
         }
-        let url = `http://opentdb.com/api.php?amount=10&type=multiple&difficulty=${event.target.difficulty.value}&category=${parsedCategory}`;
+        let url = `http://opentdb.com/api.php?amount=10&type=multiple&category=${parsedCategory}`;
+        if (event.target.difficulty.value !== "mixed") {
+            url.concat(`&difficulty=${event.target.difficulty.value}`);
+        }
         let localQuestions;
         try {
             const questionsJson = await fetch(url);
@@ -66,7 +68,6 @@ const Game = () => {
             setQuestions(localQuestions.results);
             //set global difficulty and category so we can change scores awarded appropriately
             //and send back relevant category to the server later
-            setDifficulty(event.target.difficulty.value);
             setCategory(event.target.category.value);
 
             resetTimer();
@@ -120,7 +121,7 @@ const Game = () => {
 
     function submitAnswer() {
         if (selectedAnswer === currentQuestion.correct_answer) {
-            switch (difficulty) {
+            switch (currentQuestion.difficulty) {
                 case 'easy':
                     setScore(score + 1);
                     break;
@@ -226,7 +227,7 @@ const Game = () => {
         if (props.gameFinished) {
             return (
                 <>
-                    <div id="counters" class="endOfGameCounterPosition">
+                    <div id="counters" className="endOfGameCounterPosition">
                         <MainCounterComponent />
                     </div>
                 </>
@@ -234,7 +235,7 @@ const Game = () => {
         } else {
             return (
                 <>
-                    <div id="counters" class="defaultCounterPosition">
+                    <div id="counters" className="defaultCounterPosition">
                         <MainCounterComponent />
                     </div>
                 </>
@@ -267,6 +268,7 @@ const Game = () => {
                 <form onSubmit={startGame}>
                     <label id="difficultyLabel">Difficulty:
                     <select name="difficulty" id="difficulty">
+                        <option value="mixed">Mixed</option>
                         <option value="easy">Easy</option>
                         <option value="medium">Medium</option>
                         <option value="hard">Hard</option>

@@ -4,11 +4,9 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 
 describe('LoginForm', () => {
-    let getLoginMock;
 
     beforeEach(() => {
-        getLoginMock = jest.fn();
-        render(<LoginForm handleSubmit={getLoginMock} />,  { wrapper: MemoryRouter });
+        render(<LoginForm />,  { wrapper: MemoryRouter });
     });
 
     test('it renders a form', () => {
@@ -16,11 +14,10 @@ describe('LoginForm', () => {
         expect(form).toBeInTheDocument();
     });
 
-    test('it calls LoginFunc on form submission', () => {
+    test('it listens for changes in inputs', () => {
         let usernameInput = screen.getByLabelText('Username');
         let passwordInput = screen.getByLabelText('Password');
-        userEvent.type(usernameInput, "Test")
-        userEvent.type(passwordInput, "password{enter}")
-        expect(getLoginMock).toHaveBeenNthCalledWith(1, '{username: Test, password: password}');
+        expect(usernameInput).toBeInTheDocument
+        expect(passwordInput).toBeInTheDocument
     })
 })

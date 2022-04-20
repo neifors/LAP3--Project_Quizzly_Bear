@@ -38,7 +38,7 @@ const Leaderboard = () => {
     return(
         <section>
             <h1>Leaderboard!</h1>
-            <p>See how you compare to other players!</p>
+            <p>See how you compare to other players ... </p>
            { data && <><table>
                <tbody>
                    <tr id='firstPlace'>

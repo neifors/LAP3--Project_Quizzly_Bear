@@ -5,6 +5,11 @@ table{
     border-spacing: 0px;
 }
 
+tr{
+    padding: 15px;
+    line-height: 40px;
+}
+
 #firstPlace{
     background-color: 	#FFD700;
 }

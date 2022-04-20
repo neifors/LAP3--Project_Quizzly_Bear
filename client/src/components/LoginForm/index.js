@@ -7,13 +7,16 @@ function LoginForm() {
 
     const goTo = useNavigate();
 
-    const [ username, setUsername ] = useState();
-    const [ password, setPassword ] = useState();
+    const [errorMessage, setErrorMessage] = useState();
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrorMessage('')
         await loginFunction(e);
-        goTo('/welcome')      
+        if (localStorage.length) { goTo('/welcome') }
+        else { setErrorMessage('Incorrect Username or Password!') }
     }
 
     const updateUsername = e => {
@@ -28,13 +31,16 @@ function LoginForm() {
 
     return (
         <form aria-label='form' onSubmit={handleSubmit}>
+            {errorMessage && (
+                <p className="error"> {errorMessage} </p>
+            )}
             <label htmlFor='Username'>Username</label>
             <input aria-label="Username" name="username" type='text' onChange={updateUsername} />
             <label htmlFor='Password'>Password</label>
             <input aria-label='Password' name="password" type='password' onChange={updatePassword} />
             <input className='submit' type='submit' value='LOGIN' />
             <p className='clickable' onClick={() => goTo('/register')}>Don't have an account yet? Register here!</p>
-            </form>
+        </form>
     );
 };
 

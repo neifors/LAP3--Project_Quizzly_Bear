@@ -1,13 +1,19 @@
-import React from 'react';
-import { RegisterForm } from '../../components';
+import React, {useEffect} from 'react';
+import { BackButton, RegisterForm } from '../../components';
 
 const Register = () =>  {
     
+    useEffect(() => {
+        localStorage.clear()
+    }, [])
+
     return (
     <section>
-    <h1>This is the page for the Registration!</h1>
+    <img src='https://drive.google.com/uc?export=view&id=1ComcFxDbcmO0JLb4NA7sOiEYk8Kfrezp' alt='Quizzly Bears Logo'></img>
+    <h1>Register</h1>
 
     <RegisterForm />
+    <BackButton />
     </section>
     )
 

@@ -7,9 +7,10 @@ const Homepage = () => {
 
     return (
     <section>
-    <img src='/images/QUIZZLY_BEARS_no_background.png' alt='Quizzly Bears Logo'></img>
+    <img src='https://drive.google.com/uc?export=view&id=1ComcFxDbcmO0JLb4NA7sOiEYk8Kfrezp' alt='Quizzly Bears Logo'></img>
     <button onClick={() => {goTo('/login')}}> LOGIN </button>
-    <button onClick={() => {goTo('/login')}}> REGISTER </button>
+    <button onClick={() => {goTo('/register')}}> REGISTER </button>
+    <button onClick={() => {goTo('/game')}}> DEBUG GAME BUTTON LOL </button>
     </section>
     )
 }

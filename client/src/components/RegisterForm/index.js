@@ -1,19 +1,23 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerFunction } from "../../actions";
+import { loginFunction, registerFunction } from "../../actions";
 import './style.css'
 
 function RegisterForm() {
 
     const goTo = useNavigate();
 
+    const [errorMessage, setErrorMessage] = useState();
     const [ username, setUsername ] = useState();
     const [ password, setPassword ] = useState();
 
     const handleSubmit = async(e) => {
         e.preventDefault();
+        setErrorMessage('')
         await registerFunction(e);
-        goTo('/welcome')          
+        await loginFunction(e);
+        if(localStorage.length){goTo('/welcome')}
+        else { setErrorMessage('User already exists!') }        
     }
 
     const updateUsername = e => {
@@ -28,6 +32,9 @@ function RegisterForm() {
 
     return (
         <form aria-label='form' onSubmit={handleSubmit}>
+             {errorMessage && (
+                <p className="error"> {errorMessage} </p>
+            )}
             <label htmlFor='Username'>Username</label>
             <input aria-label="Username" name="username" type='text' onChange={updateUsername} />
             <label htmlFor='Password'>Password</label>

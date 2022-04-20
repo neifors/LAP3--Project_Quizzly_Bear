@@ -1,13 +1,14 @@
 import { default as LoginForm } from '.';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router-dom';
 
 describe('LoginForm', () => {
     let getLoginMock;
 
     beforeEach(() => {
         getLoginMock = jest.fn();
-        render(<LoginForm handleSubmit={getLoginMock} />);
+        render(<LoginForm handleSubmit={getLoginMock} />,  { wrapper: MemoryRouter });
     });
 
     test('it renders a form', () => {

@@ -1,0 +1,23 @@
+table{
+    width: 100%;
+    column-width: auto;
+    border: none;
+    border-spacing: 0px;
+}
+
+tr{
+    padding: 15px;
+    line-height: 40px;
+}
+
+#firstPlace{
+    background-color: 	#FFD700;
+}
+
+#secondPlace {
+    background-color: #D8D8D8;
+}
+
+#thirdPlace {
+    background-color: #fd6262;
+}

@@ -4,7 +4,7 @@ const  init  = require('../dbConfig/dbConfig')
 class User {
     constructor(data) {
         this.username = data.username;
-        this.password = data.password;
+        // this.password = data.password;
         this.score = data.score;
     }
 
@@ -12,7 +12,8 @@ class User {
         return new Promise (async (resolve, reject) => {
             try {
                 const db = await init()
-                const usersData = await db.collection('users').find().toArray()
+                const result = await db.collection('users').find().toArray()
+                const usersData = result.map(user => new User(user))
                 resolve(usersData); 
             } catch (err) {
                 reject("Error retrieving users")
@@ -27,7 +28,7 @@ class User {
                 const db = await init();
                 let userData = await db.collection('users').find({ username: username }).toArray()
                 const user = new User(userData[0])
-                resolve(user)
+                resolve([user])
             } catch (err) {
                 reject(`User: ${username} not found.`)
             }
@@ -40,7 +41,8 @@ class User {
             try{
                 const db = await init();
                 let userData = await db.collection('users').find({ _id: ObjectId(id) }).toArray()
-                resolve(userData)
+                const user = new User(userData[0])
+                resolve([user])
             } catch (err) {
                 reject(`User not found.`)
             }

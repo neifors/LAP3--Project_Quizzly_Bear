@@ -135,10 +135,6 @@ const Game = () => {
                     setScore(score + 4);
                     break;
             }
-            document.querySelector("#counters").style.animationPlayState = "running";
-            setTimeout(() => {
-                document.querySelector("#counters").style.animationPlayState = "paused";
-            }, 820)
             setNumberCorrect(numberCorrect + 1);
         } else {
             document.querySelector("#root").style.animationPlayState = "running";
@@ -231,8 +227,8 @@ const Game = () => {
         function MainCounterComponent() {
             return (
                 <>
-                    <h2>Number Correct: {numberCorrect}</h2>
-                    <h2>Score: {score}</h2>
+                    <h2>Number Correct: {props.numberCorrect}</h2>
+                    <h2>Score: {props.score}</h2>
                 </>
             )
         } 
@@ -247,7 +243,7 @@ const Game = () => {
         } else {
             return (
                 <>
-                    <div id="counters" className="defaultCounterPosition">
+                    <div id="counters" className="defaultCounterPosition correct">
                         <MainCounterComponent />
                     </div>
                 </>
@@ -270,7 +266,7 @@ const Game = () => {
                 <>
                     <TimerBar secondsLeft={secondsLeft} />
                 	<Timer setSecondsLeft={setSecondsLeft} time={expiryTime} /><br />
-                    <Counter gameFinished={gameFinished} />
+                    <Counter numberCorrect={numberCorrect} score={score} gameFinished={gameFinished} />
                     <QuestionTitle />
                     <RenderQuestionButtons />
                 </>

@@ -9,6 +9,7 @@
 @keyframes pop {
 	50% {
 		transform: scale(50%, 50%);
+		color: red;
 	} 
 
 	100% {

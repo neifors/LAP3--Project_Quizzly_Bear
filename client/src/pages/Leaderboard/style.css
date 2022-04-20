@@ -1,6 +1,7 @@
 table{
     width: 100%;
-    column-width: auto;
+    table-layout: fixed;
+    column-width: 33%;
     border: none;
     border-spacing: 0px;
 }
@@ -21,3 +22,4 @@ tr{
 #thirdPlace {
     background-color: #fd6262;
 }
+

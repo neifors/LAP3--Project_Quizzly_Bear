@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {useTimer} from 'react-timer-hook';
 import './style.css'
 
 const Game = () => {
@@ -13,6 +14,7 @@ const Game = () => {
     const [numberCorrect, setNumberCorrect] = useState(0);
     const [difficulty, setDifficulty] = useState("");
     const [category, setCategory] = useState("");
+    const [expiryTime, setExpiryTime] = useState();
 
     async function startGame(event) {
         //https://opentdb.com/api.php?amount=10&category=9&difficulty=hard&type=multiple
@@ -73,6 +75,8 @@ const Game = () => {
         }
         setGameStarted(true);
     }
+
+
 
     class RenderQuestionButton extends React.Component {
         constructor(props) {
@@ -151,6 +155,7 @@ const Game = () => {
     useEffect(() => {
         if (gameStarted) {
             shuffleAnswers();
+            resetTimer();
         }
     }, [currentQuestion])
 
@@ -158,6 +163,32 @@ const Game = () => {
         console.log(currentQuestion)
         RenderQuestionButtons();
     }, [shuffled])
+
+    function resetTimer() {
+        const time = new Date();
+        time.setSeconds(time.getSeconds() + 30);
+        setExpiryTime(time);
+    }
+
+    function Timer() {
+        const {
+            seconds,
+            minutes,
+            hours,
+            days,
+            isRunning,
+            start,
+            pause,
+            resume,
+            restart,
+          } = useTimer({ expiryTime, onExpire: () => submitAnswer()});
+        
+        return (
+            <>
+            <p>Time: {seconds}</p>
+            </>
+        )
+    }
 
     function QuestionTitle() {
         return (
@@ -187,6 +218,7 @@ const Game = () => {
         } else if (gameStarted) {
             return (
                 <>
+                	<Timer />
                     <Counter />
                     <QuestionTitle />
                     <RenderQuestionButtons />

@@ -29,7 +29,6 @@ export const registerFunction = async (e) => {
         const data = await response.data
         if (data.err)
         {throw Error(data.err)}
-        console.log(data)
     } catch (err) {
         console.warn(err);
     }
@@ -37,11 +36,9 @@ export const registerFunction = async (e) => {
 }
 
 export const deleteUser = async(username) => {
-    console.log(username)
     try {
         const response = await axios.delete('https://quizzlybears.azurewebsites.net/users/delete', {data: {username: username}})
         const data = response.data
-        console.log(data)
     } catch  (err) {
         console.warn(err)
     }

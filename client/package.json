@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "webpack serve --mode development --config config/webpack.config.dev.js",
     "build": "webpack --config config/webpack.config.production.js",
-    "test": "jest --watchAll --silent --setupFilesAfterEnv ./src/test/setupTests.js"
+    "test": "jest --watchAll --silent --setupFilesAfterEnv ./src/test/setupTests.js",
+    "coverage": "jest --silent --setupFilesAfterEnv ./src/test/setupTests.js --coverage --watchAll=false"
   },
   "jest": {
     "moduleNameMapper": {
@@ -43,6 +44,7 @@
     "react-redux": "^7.2.8",
     "react-router-dom": "^6.3.0",
     "redux": "^4.1.2",
-    "redux-devtools-extension": "^2.13.9"
+    "redux-devtools-extension": "^2.13.9",
+    "react-timer-hook": "^3.0.5"
   }
 }

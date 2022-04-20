@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerFunction } from "../../actions";
+import { loginFunction, registerFunction } from "../../actions";
 import './style.css'
 
 function RegisterForm() {
@@ -13,6 +13,7 @@ function RegisterForm() {
     const handleSubmit = async(e) => {
         e.preventDefault();
         await registerFunction(e);
+        await loginFunction(e);
         goTo('/welcome')          
     }
 

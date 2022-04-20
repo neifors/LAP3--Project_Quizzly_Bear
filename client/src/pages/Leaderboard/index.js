@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { getLeaderboardData } from '../../actions';
 import { LeaderboardMessage } from '../../components';
 import './style.css'
+import HomeButton from '../../components/HomeButton';
+
 
 const Leaderboard = () => {
 
@@ -66,6 +68,7 @@ const Leaderboard = () => {
                 </tbody>
             </table>
             </>}
+            <HomeButton />
         </section>
     )
 }

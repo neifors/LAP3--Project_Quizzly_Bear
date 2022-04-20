@@ -1,10 +1,13 @@
 import React from 'react';
 import { LeaderboardButton, Logout, StartGame } from '../../components';
+import jwt from 'jwt-decode'
 import './style.css';
+import ProfileButton from '../../components/ProfileButton';
 
 const Welcome = () => {
 
-    const username = localStorage.getItem('username')
+    const userInfo = localStorage.getItem('token')
+    const username = jwt(userInfo).username
     const dislpayName = username.charAt(0).toUpperCase() + username.slice(1);
     
     return (
@@ -13,6 +16,7 @@ const Welcome = () => {
                 <h2>Welcome {dislpayName}!</h2>
 
                 <StartGame/>
+                <ProfileButton />
                 <LeaderboardButton/>
                 <Logout/>
 

@@ -6,7 +6,7 @@ server.use(express.json());
 const path = require('path');
 
 
-const userRoutes = require("./controllers/users");
+const userRoutes = require("./router/users");
 
 server.use("/users", userRoutes);
 

@@ -1,4 +1,5 @@
 const {MongoClient} = require("mongodb");
+const User = require('../../../models/User')
 
 
 describe('db test', () => {

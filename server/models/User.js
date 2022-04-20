@@ -56,7 +56,7 @@ class User {
                                                                     username: username, 
                                                                     password: password, 
                                                                     score: 0 });
-                    resolve(userData);
+                    resolve(new User(userData));
                 }
                 else{
                     reject(`${username} already exists`);

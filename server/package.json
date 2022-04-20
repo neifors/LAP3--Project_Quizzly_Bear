@@ -4,7 +4,7 @@
   "description": "Server sidew",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll --detectOpenHandles --runInBand --verbose",
+    "test": "jest --watchAll --detectOpenHandles --runInBand --verbose --coverage",
     "start": "nodemon --legacy-watch index.js",
     "unitTests": "jest --testPathPattern=/unit/ --watchAll --verbose",
     "coverage": "jest --testPathPattern=/unit/ --coverage"

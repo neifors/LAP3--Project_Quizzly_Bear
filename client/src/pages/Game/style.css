@@ -27,5 +27,5 @@ form {
 }
 
 progress {
-	transform: translate(0, -2px);
+	transform: translate(-1%, -2px);
 }

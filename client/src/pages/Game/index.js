@@ -178,7 +178,7 @@ const Game = () => {
         if (document.querySelector("#secondsTimer")) {
             return (
                 <>
-                    <ProgressBar color={"#ff7979"} width={"101%"} value={props.secondsLeft} max={20} />
+                    <ProgressBar color={"#ff7979"} width={"102%"} value={props.secondsLeft} max={20} />
                 </>
             )
         } else {

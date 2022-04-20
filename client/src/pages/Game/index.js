@@ -197,7 +197,7 @@ const Game = () => {
 
         return (
             <>
-                <p>Time: <Countdown date={props.time} renderer={renderer} onStart={updateSeconds} onTick={updateSeconds} onComplete={handleTimerAdvance} /></p>
+                <h3 id="timeCounter">Time: <Countdown date={props.time} renderer={renderer} onStart={updateSeconds} onTick={updateSeconds} onComplete={handleTimerAdvance} /></h3>
             </>
         )
     }
@@ -214,20 +214,39 @@ const Game = () => {
         )
     }
 
-    function Counter() {
-        return (
-            <>
-                <p>Number Correct: {numberCorrect}</p>
-                <p>Score: {score}</p>
-            </>
-        );
+    function Counter(props) {
+        function MainCounterComponent() {
+            return (
+                <>
+                    <h2>Number Correct: {numberCorrect}</h2>
+                    <h2>Score: {score}</h2>
+                </>
+            )
+        } 
+        if (props.gameFinished) {
+            return (
+                <>
+                    <div id="counters" class="endOfGameCounterPosition">
+                        <MainCounterComponent />
+                    </div>
+                </>
+            );
+        } else {
+            return (
+                <>
+                    <div id="counters" class="defaultCounterPosition">
+                        <MainCounterComponent />
+                    </div>
+                </>
+            );
+        }
     }
 
     function RenderPage() {
         if (gameFinished) {
             return (
                 <>
-                    <Counter />
+                    <Counter gameFinished={gameFinished} />
                     <h1>GG</h1>
                 </>
             )
@@ -235,8 +254,8 @@ const Game = () => {
             return (
                 <>
                     <TimerBar secondsLeft={secondsLeft} />
-                	<Timer setSecondsLeft={setSecondsLeft} time={expiryTime} />
-                    <Counter />
+                	<Timer setSecondsLeft={setSecondsLeft} time={expiryTime} /><br />
+                    <Counter gameFinished={gameFinished} />
                     <QuestionTitle />
                     <RenderQuestionButtons />
                 </>

@@ -10,6 +10,8 @@ body, main, html {
 	text-align: center;
 	margin: 0;
 	padding: 0;
+	max-width: 100%;
+	overflow-x: hidden;
 }
 
 form {
@@ -28,4 +30,28 @@ form {
 
 progress {
 	transform: translate(-1%, -2px);
+}
+
+#timeCounter {
+	display: inline-block;
+	position: relative;
+}
+
+#counters {
+	display: inline-block;
+	position: absolute;
+}
+
+.endOfGameCounterPosition {
+	transform: translate(-50%, 50%);
+	font-size: 30px;
+}
+
+.defaultCounterPosition {
+	right: 20px;
+	bottom: 0;
+}
+
+p {
+	margin: 0;
 }

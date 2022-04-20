@@ -13,7 +13,7 @@ const Profile = () => {
     const score = 'freaking loads'
 
     return (
-        <section>
+        <section className='profile'>
             <img src='https://drive.google.com/uc?export=view&id=1or22FAHZtztxmNLSqAlZetPPLhsrX702' alt='Icon' />
             <h1>Welcome back {dislpayName}!</h1>
             <h2>Your Score is currently {score}! Great job! </h2>

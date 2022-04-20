@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './style.css'
 import './dropdown.css'
+import './shake.css'
 import Countdown from 'react-countdown'
 import ProgressBar from '../../components/ProgressBar'
 
@@ -134,6 +135,11 @@ const Game = () => {
                     break;
             }
             setNumberCorrect(numberCorrect + 1);
+        } else {
+            document.querySelector("#root").style.animationPlayState = "running";
+            setTimeout(() => {
+                document.querySelector("#root").style.animationPlayState = "paused";
+            }, 820)
         }
         setSelectedAnswer("");
         if (questionIndex + 1 < 10) {
@@ -245,6 +251,7 @@ const Game = () => {
     }
 
     function RenderPage() {
+        document.querySelector("#root").classList.add("bodyShake");
         if (gameFinished) {
             return (
                 <>

@@ -263,24 +263,24 @@ const Game = () => {
         } else {
             return (
                 <>
-                <h1>Welcome to Quizzly Bears🐻</h1>
+                <h1 id="mainTitle">Welcome to Quizzly Bears' quiz 🐻</h1>
                 <form onSubmit={startGame}>
                     <label id="difficultyLabel">Difficulty:
                     <br /><select name="difficulty" id="difficulty">
-                        <option value="mixed">Mixed</option>
-                        <option value="easy">Easy</option>
-                        <option value="medium">Medium</option>
-                        <option value="hard">Hard</option>
+                        <option value="mixed">🤹 Mixed</option>
+                        <option value="easy">🤣 Easy</option>
+                        <option value="medium">🤔 Medium</option>
+                        <option value="hard">😳 Hard</option>
                     </select><br />
                     </label>
                     <label id="categoryLabel">Category:
                     <br /><select name="category" id="category">
-                        <option value="General Knowledge">General Knowledge</option>
-                        <option value="History">History</option>
-                        <option value="Science & Nature">Science & Nature</option>
-                        <option value="Geography">Geography</option>
-                        <option value="Sports">Sports</option>
-                        <option value="Animals">Animals</option>
+                        <option value="General Knowledge">📚 General Knowledge</option>
+                        <option value="History">🕰️ History</option>
+                        <option value="Science & Nature">🧪 Science & Nature</option>
+                        <option value="Geography">🌍 Geography</option>
+                        <option value="Sports">🏃‍♂️ Sports</option>
+                        <option value="Animals">🦓 Animals</option>
                     </select></label>
                     <button id="startTheQuiz" type="submit">Start the Quiz!</button>
                 </form>

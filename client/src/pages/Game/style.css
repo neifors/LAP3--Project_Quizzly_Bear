@@ -60,3 +60,11 @@ p {
 	background-color: cornflowerblue;
 	transition: 0.5s;
 }
+
+#mainTitle {
+	font-size: 50px;
+}
+
+select {
+	margin-top: 10px;
+}

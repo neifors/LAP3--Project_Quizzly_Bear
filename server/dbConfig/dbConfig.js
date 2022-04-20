@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
-const connectionUrl = process.env.DB_CONNECTION || "mongodb://quizzlybearsdb:fbIm47RxHqnwUnbcx5zbGgkCTLIniJwZIC3DSHJajJwdwBuPr95Ywdr1wIKd0D5t1kPBccAG4784ACN5zDyYmQ==@quizzlybearsdb.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@quizzlybearsdb@";
-const dbName = process.env.DB_NAME || process.env.COSMOSDB_DBNAME;
+const connectionUrl = process.env.DB_CONNECTION ? process.env.DB_CONNECTION : "mongodb://quizzlybearsdb:fbIm47RxHqnwUnbcx5zbGgkCTLIniJwZIC3DSHJajJwdwBuPr95Ywdr1wIKd0D5t1kPBccAG4784ACN5zDyYmQ==@quizzlybearsdb.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@quizzlybearsdb@";
+const dbName = process.env.DB_NAME ? process.env.DB_NAME : process.env.COSMOSDB_DBNAME;
 
 
 const init = async () => {

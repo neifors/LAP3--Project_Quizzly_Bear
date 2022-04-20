@@ -1,12 +1,4 @@
-// const mongoose = require('mongoose');
-
-// const User = mongoose.model('User', new mongoose.Schema({
-//   username: String,
-//   password: String ,
-//   score: Number
-// }));
-
-// module.exports = User;
+const { ObjectId } = require('mongodb');
 const  init  = require('../dbConfig/dbConfig')
 
 class User {
@@ -21,15 +13,87 @@ class User {
             try {
                 const db = await init()
                 const usersData = await db.collection('users').find().toArray()
-                //console.log('in get all function in models', usersData)
-                // let users = usersData.map(d => new User({ ...d, id: d._id ,username: d.username, password: d.password, habit: d.habit}))
                 resolve(usersData); 
             } catch (err) {
-                // console.log(err);
                 reject("Error retrieving users")
             }
         })
     }
-  }
+
+    static getByUsername(username) {
+        return new Promise(async (resolve, reject) => {
+            // console.log(username)
+            try{
+                const db = await init();
+                let userData = await db.collection('users').find({ username: username }).toArray()
+                const user = new User(userData[0])
+                resolve(user)
+            } catch (err) {
+                reject(`User: ${username} not found.`)
+            }
+        })
+    }
+  
+    
+    static getById(id) {
+        return new Promise(async (resolve, reject) => {
+            try{
+                const db = await init();
+                let userData = await db.collection('users').find({ _id: ObjectId(id) }).toArray()
+                resolve(userData)
+            } catch (err) {
+                reject(`User not found.`)
+            }
+        })
+    }
+
+    static createUser(username, password) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const db = await init();
+                let exists = await db.collection('users').findOne({username: username})
+                if(!exists){
+                    let userData = await db.collection('users').insertOne({ 
+                                                                    username: username, 
+                                                                    password: password, 
+                                                                    score: 0 });
+                    resolve(userData);
+                }
+                else{
+                    reject(`${username} already exists`);
+                }
+            } catch (err) {
+                reject(`Error creating user: ${username}`);
+            }
+        });
+    }
+
+
+    static updateScore(username, new_score) {
+        return new Promise(async (resolve, reject) => {
+            try{
+                const db = await init();
+                await db.collection('users').updateOne( {username: username}, { $inc: { score: new_score } } )
+                resolve(`Updated the score for ${username}`)
+            } catch (err) {
+                reject(`Error updating the score: ${err}`)
+            }
+        })
+    }
+
+    remove() {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const db = await init();
+                await db.collection('users').deleteOne({ username: this.username })
+                resolve(`${this.username} deleted`)
+            } catch (err) {
+                reject(`${this.username} could not be deleted`)
+            }
+        })
+    }
+
+}
 
   module.exports = User
+

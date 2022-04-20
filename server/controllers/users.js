@@ -6,135 +6,93 @@ const User = require("../models/User")
 
 
 async function getAll(req, res) {
-   try{
-       const userData = await User.getall(); 
-       res.status(200).json(userData)
-   } catch (err) {
-       res.status(404).json({err})    
-   }
+    try{
+        const userData = await User.getall(); 
+        res.status(200).json(userData)
+    } catch (err) {
+        res.status(404).json({err})    
+    }
+    
 }
 
-module.exports = {getAll}
+async function getUserByUsername(req, res) {
+    try{
+        const userData = await User.getByUsername(req.params.username); 
+        res.status(200).json(userData)
+    } catch (err) {
+        res.status(404).json({err})    
+    }
+}
 
-// function getAll(req, res) {
-//    // Return a list of all users information apart from the password
-//    User.find({}, ['username', 'score'], (err, users) => {
-//       // Note that this error doesn't mean nothing was found,
-//       // it means the database had an error while searching, hence the 500 status
-//       if (err) return res.status(500).send(err)
-//       return res.status(200).send(users);
-//    });
-// }   
+async function register(req, res) {
+    try{
+        const salt = await bcrypt.genSalt();
+        const hashed = await bcrypt.hash(req.body.password, salt)
+        const username = req.body.username
+        const password = hashed
+        const newUser = await User.createUser(username, password)
+        res.status(201).json({user: newUser, msg: "Register Successful"})
+    } catch (err) {
+        res.status(422).json({err})
+    }
+}
 
-// function getByUsername(req, res) {
-// // Return a user info by username (no password)
-//    User.find({username: req.params.username}, ['username', 'score'], (err, users) => {
-//       if (err) return res.status(500).send(err)
-//       return res.status(200).send(users);
-//    });
-// }
+async function getUserById(req, res) {
+    try{
+        const userData = await User.getById(req.params.id); 
+        res.status(200).json(userData)
+    } catch (err) {
+        res.status(404).json({err})    
+    }
+}
 
-// function getUserById(req, res) {
-// // Return a user info by id (no password)
+async function login(req, res) {
+    try {
+        const user = await User.getByUsername(req.body.username)
+        if (!user) { 
+            throw new Error('No user with this username') 
+        }
+        const authed = await bcrypt.compare(req.body.password, user.password)
+        if (!!authed){
+            const payload = { username: user.username }
+            const sendToken = (err, token) => {
+                if(err){ 
+                    throw new Error('Error in token generation') 
+                }
+                res.status(200).json({
+                    success: true,
+                    token: "Bearer " + token,
+                });
+            }
+            jwt.sign(payload, process.env.SECRET, sendToken);
+        } else {
+            throw new Error('User could not be authenticated')  
+        }
+    } catch (err) {
+        res.status(401).json({ err });
+    }
+}
 
-//    User.findById(req.params.id, ['username', 'score'],  (err, user) => {
+async function updateUserScore(req, res) {
+    try{
+        await User.updateScore(req.body.username, req.body.new_score)
+        res.status(200).json({msg: `Update score of user ${req.body.username}: Successful`})
+    } catch (err) {
+        res.status(304).json({err})
+    }
+}
 
-//       if (err) return res.status(500).send(err)
-//       return res.status(200).send(user)
-//    });
-// }
-
-// async function register(req, res){
-// // Create a new user
-//    try {
-
-//       const foundUser = await User.find({username: req.body.username}, (err, user) => {
-//          if (err) return (err)
-//          return (user);
-//       });
-
-//       if (foundUser.length) throw new Error("User already exist")
-
-//       // Proccess to hash the password using bcryptjs 
-//       const salt = await bcrypt.genSalt();
-//       const hashed = await bcrypt.hash(req.body.password, salt)
-
-//       // Object User with the username, the hashed password and an empty lists of games.
-//       const user = new User({
-//       username: req.body.username,
-//       password: hashed ,
-//       score: 0
-//       });
-
-//       // This is the way we save the object above into de database returning the new user if there is no error
-//       user.save((err, saveUser) => {
-//          if (err) return res.status(500).json({err: err});
-//          return res.status(201).json({user: saveUser, msg: "Register Successful"});
-//       });
-//    }catch(e){
-//       // 302 Found (that means the username is being found and needs to be unique)
-//       return res.status(302).json({err: e});
-//    }
-
-// }
-
-// async function login(req, res) {
-// // Check if the inputs are correct. If yes, login the user sending back a token containing the username 
-
-//    try {
-//       const foundUser = await User.find({username: req.body.username}, (err, user) => {
-//          if (err) return (err)
-//          return (user);
-//       });
-//       const correct= await bcrypt.compare(req.body.password.toString(), foundUser[0].password.toString());
-
-//       if(correct){
-//          const token= jwt.sign({username: req.body.username}, process.env.SECRET)
-//          return res.status(200).json({token: token, msg: "Login Successful"});
-//       } else {
-//          return res.status(403).json({err: "Wrong password"}) //unauthorised http response
-//       }
-
-//    } catch(err){
-//       res.status(401).json({ err });
-//    }
-// }
-
-// function updateScore(req, res) {
-//    try {
-//       User.updateOne({username: req.body.username}, 
-//          { $inc: { score: req.body.new_score } }, function (err, docs) {
-//          if (err) return res.status(500).json({err: err});
-//          return res.status(200).json({msg: `Update score of user ${req.body.username}: Successful`});
-//       });
-
-//    }catch(e){
-//       // 304 Not modified
-//       res.status(304).json({ e });
-//    }
-// }
-
-// function deleteUser(req, res) {
-//     try {
-        
-//         User.findOneAndDelete({ username: req.body.username }, function (err) {
-//             if(err) return res.status(500).json({err: err});
-//             return res.status(200).json({msg: `Delete user ${req.body.username}: Successful`});
-//           });
-          
-//     }catch(e){
-//         res.status(401).json({ e });
-//     }
-// }
+async function deleteUser(req, res) {
+    try{
+        const user = await User.getByUsername(req.body.username)
+        const response = await user.remove();
+        res.status(200).json({msg: `Delete user ${req.body.username}: Successful`, response: response})
+    } catch (err) {
+        res.status(500).json({err})
+    }
+}
 
 
+module.exports = {getAll, getUserByUsername, register, getUserById, login, updateUserScore, deleteUser}
 
-// module.exports={
-//    getAll,
-//    getByUsername,
-//    getUserById,
-//    register,
-//    login,
-//    updateScore,
-//    deleteUser
-// };
+

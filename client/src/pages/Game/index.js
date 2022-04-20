@@ -80,8 +80,6 @@ const Game = () => {
         setGameStarted(true);
     }
 
-
-
     class RenderQuestionButton extends React.Component {
         constructor(props) {
             super(props);

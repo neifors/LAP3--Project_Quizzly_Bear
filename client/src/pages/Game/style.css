@@ -56,6 +56,11 @@ p {
 	margin: 0;
 }
 
+#startTheQuiz {
+	align-self: initial;
+	min-height: 40px;
+}
+
 #startTheQuiz:hover {
 	background-color: cornflowerblue;
 	transition: 0.5s;

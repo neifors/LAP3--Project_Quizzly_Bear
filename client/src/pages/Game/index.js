@@ -42,6 +42,8 @@ const Game = () => {
                 parsedCategory = 17;
                 break;
         }
+        //unfortunately, the api does not support multiple categories that don't include everything in their database
+        //so we can't just have the 6 categories specified above unless we made many api requests
         let url = `http://opentdb.com/api.php?amount=10&type=multiple&category=${parsedCategory}`;
         if (event.target.difficulty.value !== "mixed") {
             url = url.concat(`&difficulty=${event.target.difficulty.value}`);

@@ -8,7 +8,9 @@ export const loginFunction = async (e) => {
         }
 
         const response = await axios.post('https://quizzlybears.azurewebsites.net/users/login', userData)
-        const data = response.data
+        const data = await response.data
+        if (data.err)
+        {throw Error(data.err)}
         login(data)
     } catch (err) {
         console.warn(err);

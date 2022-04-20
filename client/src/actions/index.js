@@ -26,7 +26,9 @@ export const registerFunction = async (e) => {
         }
 
         const response = await axios.post('https://quizzlybears.azurewebsites.net/users/register', userData)
-        const data = response.data
+        const data = await response.data
+        if (data.err)
+        {throw Error(data.err)}
         console.log(data)
     } catch (err) {
         console.warn(err);

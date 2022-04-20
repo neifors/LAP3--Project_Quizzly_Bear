@@ -38,8 +38,9 @@ const Leaderboard = () => {
 
     return(
         <section>
-            <h1>Leaderboard!</h1>
-           { data && <>
+            <h1>Leaderboard</h1>
+            {!data ? <p>Loading data ...</p> :
+            <>
             <LeaderboardMessage leader={leader} secondPlace={secondPlace} thirdPlace={thirdPlace}/>
             <table>
                <tbody>

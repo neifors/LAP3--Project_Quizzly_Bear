@@ -43,7 +43,7 @@ const Game = () => {
         }
         let url = `http://opentdb.com/api.php?amount=10&type=multiple&category=${parsedCategory}`;
         if (event.target.difficulty.value !== "mixed") {
-            url.concat(`&difficulty=${event.target.difficulty.value}`);
+            url = url.concat(`&difficulty=${event.target.difficulty.value}`);
         }
         let localQuestions;
         try {

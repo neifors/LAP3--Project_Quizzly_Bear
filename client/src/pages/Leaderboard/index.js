@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getLeaderboardData } from '../../actions';
+import { LeaderboardMessage } from '../../components';
 import './style.css'
 
 const Leaderboard = () => {
@@ -23,8 +24,6 @@ const Leaderboard = () => {
         isThereData()
     }, [leaderboardData])
 
-
-        const currentPlayer = localStorage.getItem('username');
         const leader = leaderboardData[0];
         const secondPlace = leaderboardData[1];
         const thirdPlace = leaderboardData[2];
@@ -38,8 +37,9 @@ const Leaderboard = () => {
     return(
         <section>
             <h1>Leaderboard!</h1>
-            <p>See how you compare to other players ... </p>
-           { data && <><table>
+           { data && <>
+            <LeaderboardMessage leader={leader} secondPlace={secondPlace} thirdPlace={thirdPlace}/>
+            <table>
                <tbody>
                    <tr id='firstPlace'>
                         <td>1<span><img src = ''></img></span></td>

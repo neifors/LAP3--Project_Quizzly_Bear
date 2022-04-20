@@ -1,5 +1,4 @@
 import axios from 'axios'
-import jwt from 'jwt-decode'
 
 export const loginFunction = async (e) => {
     try {
@@ -26,9 +25,21 @@ export const registerFunction = async (e) => {
 
         const response = await axios.post('https://quizzlybears.azurewebsites.net/users/register', userData)
         const data = response.data
-        console(data)
+        console.log(data)
     } catch (err) {
         console.warn(err);
+    }
+
+}
+
+export const deleteUser = async(username) => {
+    console.log(username)
+    try {
+        const response = await axios.delete('https://quizzlybears.azurewebsites.net/users/delete', {data: {username: username}})
+        const data = response.data
+        console.log(data)
+    } catch  (err) {
+        console.warn(err)
     }
 
 }
@@ -37,6 +48,5 @@ export const registerFunction = async (e) => {
 // helpers
 
 function login(data) {
-    let userInfo = jwt(data.token)
-    localStorage.setItem("username", userInfo.username)
+    localStorage.setItem("token", data.token)
 }

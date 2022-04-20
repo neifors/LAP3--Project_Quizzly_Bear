@@ -3,8 +3,9 @@ import './style.css'
 
 const Game = () => {
     const [gameStarted, setGameStarted] = useState(false);
+    const [gameFinished, setGameFinished] = useState(false);
     const [questions, setQuestions] = useState([]);
-    const [currentQuestion, setCurrentQuestion] = useState();
+    let [currentQuestion, setCurrentQuestion] = useState();
     const [questionIndex, setQuestionIndex] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState("");
     const [shuffled, setShuffled] = useState([]);
@@ -123,8 +124,16 @@ const Game = () => {
                     setScore(score + 4);
                     break;
             }
+            setNumberCorrect(numberCorrect + 1);
         }
-        setNumberCorrect(numberCorrect + 1);
+        setSelectedAnswer("");
+        if (questionIndex + 1 < 10) {
+            setCurrentQuestion(questions[questionIndex + 1]);
+            setQuestionIndex(questionIndex + 1);
+        } else {
+            setGameFinished(true);
+        }
+        RenderPage();
     }
 
     function RenderQuestionButtons() {
@@ -142,6 +151,7 @@ const Game = () => {
     useEffect(() => {
         if (gameStarted) {
             shuffleAnswers();
+            QuestionTitleComponent();
         }
     }, [currentQuestion])
 
@@ -150,13 +160,36 @@ const Game = () => {
         RenderQuestionButtons();
     }, [shuffled])
 
+    function QuestionTitleComponent() {
+        return (
+            <>
+                <h1>{questionIndex + 1}. {currentQuestion.question}</h1>
+            </>
+        )
+    }
+
+    function CounterComponent() {
+        return (
+            <>
+                <p>Number Correct: {numberCorrect}</p>
+                <p>Score: {score}</p>
+            </>
+        );
+    }
+
     function RenderPage() {
-        if (gameStarted) {
+        if (gameFinished) {
             return (
                 <>
-                    <p>Number Correct: {numberCorrect}</p>
-                    <p>Score: {score}</p>
-                    <h1>{questionIndex + 1}. {currentQuestion.question}</h1>
+                    <CounterComponent />
+                    <h1>GG</h1>
+                </>
+            )
+        } else if (gameStarted) {
+            return (
+                <>
+                    <CounterComponent />
+                    <QuestionTitleComponent />
                     <RenderQuestionButtons />
                 </>
             )

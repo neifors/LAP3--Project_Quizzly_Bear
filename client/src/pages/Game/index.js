@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './style.css'
 import './dropdown.css'
 import './shake.css'
+import './correct.css'
 import Countdown from 'react-countdown'
 import ProgressBar from '../../components/ProgressBar'
 
@@ -134,6 +135,10 @@ const Game = () => {
                     setScore(score + 4);
                     break;
             }
+            document.querySelector("#counters").style.animationPlayState = "running";
+            setTimeout(() => {
+                document.querySelector("#counters").style.animationPlayState = "paused";
+            }, 820)
             setNumberCorrect(numberCorrect + 1);
         } else {
             document.querySelector("#root").style.animationPlayState = "running";
@@ -234,7 +239,7 @@ const Game = () => {
         if (props.gameFinished) {
             return (
                 <>
-                    <div id="counters" className="endOfGameCounterPosition">
+                    <div id="counters" className="endOfGameCounterPosition correct">
                         <MainCounterComponent />
                     </div>
                 </>
@@ -253,6 +258,7 @@ const Game = () => {
     function RenderPage() {
         document.querySelector("#root").classList.add("bodyShake");
         if (gameFinished) {
+            document.querySelector("#root").classList.remove("bodyShake");
             return (
                 <>
                     <Counter gameFinished={gameFinished} />

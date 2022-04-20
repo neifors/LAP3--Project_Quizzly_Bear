@@ -1,10 +1,12 @@
 import React from 'react';
+import jwt from 'jwt-decode';
 
 const LeaderboardMessage = ({leader, secondPlace, thirdPlace}) => {
 
     let message = ''
-
-    let currentPlayer = localStorage.getItem('username');
+    
+    const userInfo = localStorage.getItem('token')
+    const currentPlayer = jwt(userInfo).username
 
     if (currentPlayer === leader.username){
         message = `Congratulations ${currentPlayer} you are the Smartest Teddy!`

@@ -44,6 +44,7 @@ export const getLeaderboardData = async () => {
     }catch(err){
         console.warn(err)
     }
+}
 
 export const deleteUser = async(username) => {
     console.log(username)

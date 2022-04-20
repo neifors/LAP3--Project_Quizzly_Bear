@@ -7,8 +7,9 @@ const User = require("../models/User")
 
 async function getAll(req, res) {
     try{
-        const userData = await User.getall(); 
-        res.status(200).json(userData)
+        const result = await User.getall(); 
+        const usersData = result.map(user => new User(user))
+        res.status(200).json(usersData)
     } catch (err) {
         res.status(404).json({err})    
     }
@@ -17,12 +18,24 @@ async function getAll(req, res) {
 
 async function getUserByUsername(req, res) {
     try{
-        const userData = await User.getByUsername(req.params.username); 
-        res.status(200).json(userData)
+        const result = await User.getByUsername(req.params.username);
+        const user = new User(result)
+        res.status(200).json([user])
     } catch (err) {
         res.status(404).json({err})    
     }
 }
+
+async function getUserById(req, res) {
+    try{
+        const result = await User.getById(req.params.id); 
+        const user = new User(result)
+        res.status(200).json([user])
+    } catch (err) {
+        res.status(404).json({err})    
+    }
+}
+
 
 async function register(req, res) {
     try{
@@ -34,15 +47,6 @@ async function register(req, res) {
         res.status(201).json({user: newUser, msg: "Register Successful"})
     } catch (err) {
         res.status(422).json({err})
-    }
-}
-
-async function getUserById(req, res) {
-    try{
-        const userData = await User.getById(req.params.id); 
-        res.status(200).json(userData)
-    } catch (err) {
-        res.status(404).json({err})    
     }
 }
 

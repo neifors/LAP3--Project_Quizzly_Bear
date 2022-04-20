@@ -13,8 +13,7 @@ class User {
             try {
                 const db = await init()
                 const result = await db.collection('users').find().toArray()
-                const usersData = result.map(user => new User(user))
-                resolve(usersData); 
+                resolve(result); 
             } catch (err) {
                 reject("Error retrieving users")
             }
@@ -26,9 +25,8 @@ class User {
             // console.log(username)
             try{
                 const db = await init();
-                let userData = await db.collection('users').find({ username: username }).toArray()
-                const user = new User(userData[0])
-                resolve([user])
+                let user = await db.collection('users').find({ username: username }).toArray()
+                resolve(user[0])
             } catch (err) {
                 reject(`User: ${username} not found.`)
             }
@@ -40,9 +38,8 @@ class User {
         return new Promise(async (resolve, reject) => {
             try{
                 const db = await init();
-                let userData = await db.collection('users').find({ _id: ObjectId(id) }).toArray()
-                const user = new User(userData[0])
-                resolve([user])
+                let user = await db.collection('users').find({ _id: ObjectId(id) }).toArray()
+                resolve(user[0])
             } catch (err) {
                 reject(`User not found.`)
             }

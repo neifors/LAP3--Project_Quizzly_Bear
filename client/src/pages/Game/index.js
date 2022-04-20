@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './style.css'
 import Countdown from 'react-countdown'
+import ProgressBar from '../../components/ProgressBar'
 
 const Game = () => {
     const [gameStarted, setGameStarted] = useState(false);
@@ -15,6 +16,7 @@ const Game = () => {
     const [difficulty, setDifficulty] = useState("");
     const [category, setCategory] = useState("");
     const [expiryTime, setExpiryTime] = useState();
+    const [secondsLeft, setSecondsLeft] = useState(20);
 
     async function startGame(event) {
         //https://opentdb.com/api.php?amount=10&category=9&difficulty=hard&type=multiple
@@ -172,14 +174,30 @@ const Game = () => {
         }
     }
 
-    function Timer() {
+    function TimerBar(props) {
+        if (document.querySelector("#secondsTimer")) {
+            return (
+                <>
+                    <ProgressBar color={"#ff7979"} width={"100%"} value={props.secondsLeft} max={20} />
+                </>
+            )
+        } else {
+            return (<></>);
+        }
+    }
+
+    function Timer(props) {
         const renderer = ({seconds}) => (
             <span id="secondsTimer">{seconds - 1}</span>
         )
 
+        function updateSeconds() {
+            props.setSecondsLeft(parseInt(document.querySelector("#secondsTimer").textContent))
+        }
+
         return (
             <>
-            <p>Time: <Countdown date={expiryTime} renderer={renderer} onComplete={handleTimerAdvance} /></p>
+                <p>Time: <Countdown date={props.time} renderer={renderer} onStart={updateSeconds} onTick={updateSeconds} onComplete={handleTimerAdvance} /></p>
             </>
         )
     }
@@ -216,7 +234,8 @@ const Game = () => {
         } else if (gameStarted) {
             return (
                 <>
-                	<Timer />
+                    <TimerBar secondsLeft={secondsLeft} />
+                	<Timer setSecondsLeft={setSecondsLeft} time={expiryTime} />
                     <Counter />
                     <QuestionTitle />
                     <RenderQuestionButtons />

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import './style.css'
+import './dropdown.css'
 import Countdown from 'react-countdown'
 import ProgressBar from '../../components/ProgressBar'
 
@@ -265,7 +266,7 @@ const Game = () => {
                 <h1>Welcome to Quizzly Bears🐻</h1>
                 <form onSubmit={startGame}>
                     <label id="difficultyLabel">Difficulty:
-                    <select name="difficulty" id="difficulty">
+                    <br /><select name="difficulty" id="difficulty">
                         <option value="mixed">Mixed</option>
                         <option value="easy">Easy</option>
                         <option value="medium">Medium</option>
@@ -273,7 +274,7 @@ const Game = () => {
                     </select><br />
                     </label>
                     <label id="categoryLabel">Category:
-                    <select name="category" id="category">
+                    <br /><select name="category" id="category">
                         <option value="General Knowledge">General Knowledge</option>
                         <option value="History">History</option>
                         <option value="Science & Nature">Science & Nature</option>
@@ -281,7 +282,7 @@ const Game = () => {
                         <option value="Sports">Sports</option>
                         <option value="Animals">Animals</option>
                     </select></label>
-                    <button type="submit">Start the Quiz!</button>
+                    <button id="startTheQuiz" type="submit">Start the Quiz!</button>
                 </form>
                 </>
             )

@@ -55,3 +55,8 @@ progress {
 p {
 	margin: 0;
 }
+
+#startTheQuiz:hover {
+	background-color: cornflowerblue;
+	transition: 0.5s;
+}

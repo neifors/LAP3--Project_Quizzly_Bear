@@ -10,7 +10,8 @@ const Login = () => {
     
     return (
     <section>
-    <h1>This is the page for the Login!</h1>
+    <img src='/images/QUIZZLY_BEARS_no_background.png' alt='Quizzly Bears Logo'></img>
+    <h1>Login</h1>
 
     <LoginForm />
     <BackButton />

@@ -9,7 +9,8 @@ const Register = () =>  {
 
     return (
     <section>
-    <h1>This is the page for the Registration!</h1>
+    <img src='/images/QUIZZLY_BEARS_no_background.png' alt='Quizzly Bears Logo'></img>
+    <h1>Register</h1>
 
     <RegisterForm />
     <BackButton />

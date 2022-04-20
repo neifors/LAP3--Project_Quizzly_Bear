@@ -1,13 +1,14 @@
+
 version: '3'
 services:
-  server:
+  api:
     image: node:12.18.4
-    environment: 
-      - DB_NAME = quizzlybearsdb
-      - DB_CONNECTION = mongodb://quizzlybearsdb:fbIm47RxHqnwUnbcx5zbGgkCTLIniJwZIC3DSHJajJwdwBuPr95Ywdr1wIKd0D5t1kPBccAG4784ACN5zDyYmQ==@quizzlybearsdb.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@quizzlybearsdb@
-
+    working_dir: /code
     volumes:
       - type: bind
         source: ./
         target: /code
-
+  db:
+    image: mongo:latest
+    environment: 
+      - MONGO_INITDB_ROOT_USERNAME=futureproof

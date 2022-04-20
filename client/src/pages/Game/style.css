@@ -6,8 +6,10 @@
 	margin-left: 5px;
 }
 
-body {
+body, main, html {
 	text-align: center;
+	margin: 0;
+	padding: 0;
 }
 
 form {

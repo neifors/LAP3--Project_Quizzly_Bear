@@ -32,6 +32,19 @@ export const registerFunction = async (e) => {
 
 }
 
+export const getLeaderboardData = async () => {
+    try{
+        const response = await axios.get('https://quizzlybears.azurewebsites.net/users')
+        const data = response.data;
+        const sort= data.sort((a, b) => {
+            return b.score - a.score;
+        })
+        return sort;
+
+    }catch(err){
+        console.warn(err)
+    }
+
 export const deleteUser = async(username) => {
     console.log(username)
     try {
@@ -50,3 +63,4 @@ export const deleteUser = async(username) => {
 function login(data) {
     localStorage.setItem("token", data.token)
 }
+

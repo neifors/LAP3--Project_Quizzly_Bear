@@ -1,12 +1,23 @@
-version: '3'
 services:
-  server:
-    container_name: debug_test_api
-    working_dir: /code
-
-    command: bash -c "npm install && npm test"
+  api:
+    container_name: demo_test_api
+    environment: 
+      - DB_NAME=quizzlybears
+      - DB_CONNECTION=mongodb://futureproof:quizzlypass@db:27017
+    depends_on:
+      - db
     tty: true
-
+  db:
+    container_name: test_db
+    volumes:
+      - "test_db:/var/lib/mongodb/data"
+      - "./db/:/docker-entrypoint-initdb.d/:ro"
+    environment: 
+      - MONGO_INITDB_ROOT_USERNAME=futureproof
+      - MONGO_INITDB_DATABASE=quizzlybears
+      - MONGO_INITDB_ROOT_PASSWORD=quizzlypass
+volumes:
+  test_db:
 networks: 
   default:
-    name: debug_test
+    name: app_test

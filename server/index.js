@@ -1,6 +1,3 @@
-const mongoose = require('mongoose');
-const env = require('dotenv');
-env.config()
 const server = require('./server.js')
 const init = require("./dbConfig/dbConfig")
 
@@ -12,4 +9,4 @@ server.listen(port, ()=>{
 })
 
 // DB CONNECTION
-init()
+// init()

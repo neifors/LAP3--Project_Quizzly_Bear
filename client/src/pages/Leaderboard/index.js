@@ -61,7 +61,7 @@ const Leaderboard = () => {
                         <td>{thirdPlace.score}</td>
                     </tr>
                     {otherPlayers.map(player => (
-                        <tr key={player._id}>
+                        <tr key={player.username}>
                             <td>{player.place}</td>
                             <td>{player.username}</td>
                             <td>{player.score}</td>

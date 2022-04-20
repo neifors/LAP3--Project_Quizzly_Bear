@@ -1,10 +1,11 @@
 import { default as Leaderboard } from '.';
 import { screen, render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 
 describe('Leaderboard', () => {
 
 beforeEach(() => {
-    render(<Leaderboard/>);
+    render(<Leaderboard/>, { wrapper: MemoryRouter });
 })
 
 test('it renders heading', ()=> {

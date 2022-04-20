@@ -15,13 +15,13 @@ const Container = Styled.div`
   }
 
   progress[value]::-webkit-progress-bar {
-    height: 10px;
+    height: 15px;
     border-radius: 20px;
     background-color: #eee;
   }  
 
   progress[value]::-webkit-progress-value {
-    height: 10px;
+    height: 15px;
     border-radius: 20px;
     background-color: ${props => props.color};
   }

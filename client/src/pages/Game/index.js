@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {useTimer} from 'react-timer-hook';
 import './style.css'
+import Countdown from 'react-countdown'
 
 const Game = () => {
     const [gameStarted, setGameStarted] = useState(false);
@@ -67,6 +67,7 @@ const Game = () => {
             setDifficulty(event.target.difficulty.value);
             setCategory(event.target.category.value);
 
+            resetTimer();
             setCurrentQuestion(localQuestions.results[0]);
         } catch (error) {
             console.log(error);
@@ -132,6 +133,7 @@ const Game = () => {
         }
         setSelectedAnswer("");
         if (questionIndex + 1 < 10) {
+            resetTimer();
             setCurrentQuestion(questions[questionIndex + 1]);
             setQuestionIndex(questionIndex + 1);
         } else {
@@ -155,7 +157,6 @@ const Game = () => {
     useEffect(() => {
         if (gameStarted) {
             shuffleAnswers();
-            resetTimer();
         }
     }, [currentQuestion])
 
@@ -164,30 +165,23 @@ const Game = () => {
         RenderQuestionButtons();
     }, [shuffled])
 
-    function resetTimer() {
-        const time = new Date();
-        time.setSeconds(time.getSeconds() + 30);
-        setExpiryTime(time);
-    }
-
     function Timer() {
-        const {
-            seconds,
-            minutes,
-            hours,
-            days,
-            isRunning,
-            start,
-            pause,
-            resume,
-            restart,
-          } = useTimer({ expiryTime, onExpire: () => submitAnswer()});
-        
-        return (
+        const renderer = ({seconds}) => (
             <>
-            <p>Time: {seconds}</p>
+            <span>
+              {seconds}
+            </span>
             </>
         )
+        return (
+            <>
+            <p>Time: <Countdown date={expiryTime} renderer={renderer} /></p>
+            </>
+        )
+    }
+
+    function resetTimer() {
+        setExpiryTime(Date.now() + 30000);
     }
 
     function QuestionTitle() {

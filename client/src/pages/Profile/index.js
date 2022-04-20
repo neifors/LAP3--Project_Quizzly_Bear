@@ -14,7 +14,7 @@ const Profile = () => {
 
     return (
         <section>
-            <img src='/images/QUIZZLY BEARS icon.png' alt='Icon' />
+            <img src='https://drive.google.com/uc?export=view&id=1or22FAHZtztxmNLSqAlZetPPLhsrX702' alt='Icon' />
             <h1>Welcome back {dislpayName}!</h1>
             <h2>Your Score is currently {score}! Great job! </h2>
             <LeaderboardButton />

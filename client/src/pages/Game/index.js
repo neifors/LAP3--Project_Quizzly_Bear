@@ -151,7 +151,6 @@ const Game = () => {
     useEffect(() => {
         if (gameStarted) {
             shuffleAnswers();
-            QuestionTitleComponent();
         }
     }, [currentQuestion])
 
@@ -160,7 +159,7 @@ const Game = () => {
         RenderQuestionButtons();
     }, [shuffled])
 
-    function QuestionTitleComponent() {
+    function QuestionTitle() {
         return (
             <>
                 <h1>{questionIndex + 1}. {currentQuestion.question}</h1>
@@ -168,7 +167,7 @@ const Game = () => {
         )
     }
 
-    function CounterComponent() {
+    function Counter() {
         return (
             <>
                 <p>Number Correct: {numberCorrect}</p>
@@ -181,15 +180,15 @@ const Game = () => {
         if (gameFinished) {
             return (
                 <>
-                    <CounterComponent />
+                    <Counter />
                     <h1>GG</h1>
                 </>
             )
         } else if (gameStarted) {
             return (
                 <>
-                    <CounterComponent />
-                    <QuestionTitleComponent />
+                    <Counter />
+                    <QuestionTitle />
                     <RenderQuestionButtons />
                 </>
             )

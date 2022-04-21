@@ -13,6 +13,7 @@ const Welcome = () => {
     return (
         <>
             <section>
+                <img src='https://drive.google.com/uc?export=view&id=1ComcFxDbcmO0JLb4NA7sOiEYk8Kfrezp' alt='Quizzly Bears Logo'></img>
                 <h2>Welcome {displayName}!</h2>
 
                 <StartGame/>

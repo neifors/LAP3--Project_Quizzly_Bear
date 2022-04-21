@@ -9,6 +9,7 @@ import jwt from 'jwt-decode'
 import { getUserScore, updateUserScore } from '../../actions';
 import HomeButton from '../../components/HomeButton';
 import RootButton from '../../components/RootButton';
+import { BackButton } from '../../components';
 
 const Game = () => {
     const [gameStarted, setGameStarted] = useState(false);
@@ -305,9 +306,9 @@ const Game = () => {
                 <>
                     <TimerBar secondsLeft={secondsLeft} />
                 	<Timer setSecondsLeft={setSecondsLeft} time={expiryTime} /><br />
-                    <Counter numberCorrect={numberCorrect} score={score} gameFinished={gameFinished} />
                     <QuestionTitle />
                     <RenderQuestionButtons />
+                    <Counter numberCorrect={numberCorrect} score={score} gameFinished={gameFinished} />
                 </>
             )
         } else {
@@ -333,6 +334,7 @@ const Game = () => {
                         <option value="Animals">🦓 Animals</option>
                     </select></label>
                     <button id="startTheQuiz" type="submit">Start the Quiz!</button>
+                    <BackButton/>
                 </form>
                 </>
             )

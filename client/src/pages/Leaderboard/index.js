@@ -43,7 +43,8 @@ const Leaderboard = () => {
             {!data ? <p>Loading data ...</p> :
             <>
             <LeaderboardMessage leader={leader} secondPlace={secondPlace} thirdPlace={thirdPlace}/>
-            <table>
+            <table id="leaderboard">
+
                <tbody>
                    <tr id='firstPlace'>
                         <td>1<span><img src = ''></img></span></td>

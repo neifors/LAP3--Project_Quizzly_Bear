@@ -27,7 +27,7 @@ const Profile = () => {
         <section className='profile'>
             <img src='https://drive.google.com/uc?export=view&id=1or22FAHZtztxmNLSqAlZetPPLhsrX702' alt='Icon' />
             <h1>Welcome back {displayName}!</h1>
-            <h2>Your Score is currently {score}! Great job! </h2>
+            <h2>Your Score: {score} { score==0 ? "":"Great Job!"}</h2>
             <LeaderboardButton />
             <StartGame />
             <HomeButton />

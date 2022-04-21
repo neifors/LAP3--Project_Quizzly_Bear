@@ -7,5 +7,6 @@ export { default as LeaderboardMessage } from './LeaderboardMessage'
 export { default as BackButton} from './BackButton';
 export { default as DeleteButton} from './DeleteButton';
 export { default as HomeButton} from './HomeButton';
+export { default as RootButton} from './RootButton';
 export { default as ProfileButton} from './ProfileButton'
 export { default as ProgressBar} from './ProgressBar'

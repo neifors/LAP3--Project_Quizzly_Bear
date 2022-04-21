@@ -1,5 +1,6 @@
 import React from 'react';
 import jwt from 'jwt-decode';
+import './index.css'
 
 const LeaderboardMessage = ({leader, secondPlace, thirdPlace}) => {
 
@@ -17,7 +18,7 @@ const LeaderboardMessage = ({leader, secondPlace, thirdPlace}) => {
     else (message = `Great Work ${currentPlayer}! Keep scoring points to work up the leaderboard`)
 
     return(
-        <p role='message'>{message}</p>
+        <p id="leaderboard-msg" role='message'>{message}</p>
     )
 
 }

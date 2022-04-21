@@ -25,35 +25,40 @@ const Profile = () => {
     const userData = data && data.find(x => x.username == `${username}`)
     const score = userData && userData.score
 
-    let equivalent
+    let percentage
     let color
     let level
     let num
 
-    if( score <= 20){
-        equivalent = (score*100)/20;
+    if( score < 20){
+        percentage = Math.floor((score*100)/20);
         color = "orange"
         level = "Baby Bear"
         num = 1
-    } else if( score > 20 && score <= 50){
-        equivalent = (score*100)/50;
+    } else if( score >= 20 && score < 50){
+        percentage =  Math.floor(((score-20)*100)/30);
         color = "blue"
         level = "Young Bear"
         num=2
-    } else if( score > 20 && score <= 50){
-        equivalent = (score*100)/100;
+    } else if( score >= 50 && score < 100){
+        percentage = Math.floor(((score-50)*100)/50);
         color = "green"
         level = "Teen Bear"
         num = 3
-    } else if( score > 20 && score <= 50){
-        equivalent = (score*100)/160;
+    } else if( score >= 100 && score < 160){
+        percentage =  Math.floor(((score-100)*100)/60);
         color = "red"
         level = "Adult Bear"
         num = 4
-    } else {
-        equivalent = (score*100)/250;
+    } else if( score >= 160 && score < 250){
+        percentage =  Math.floor(((score-160)*100)/90);
         color = "brown"
         level = "Grandpa Bear"
+        num = 5
+    } else {
+        percentage = 100;
+        color = "brown"
+        level = "The wisest Grandpa Bear"
         num = 5
     }
 
@@ -65,7 +70,7 @@ const Profile = () => {
             <h2>Your Score: {score} { score < 10 ? "":"Great Job!"}</h2>
             <p>Level {num}: <strong>{level}</strong></p>
 
-            <PointsBar bgcolor={color} progress={equivalent}  height={{equivalent}}/>
+            <PointsBar bgcolor={color} progress={percentage}  height={{percentage}}/>
             <LeaderboardButton />
             <StartGame />
             <HomeButton />

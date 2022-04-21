@@ -43,7 +43,8 @@ progress {
 /* } */
 
 .endOfGameCounterPosition {
-	transform: translate(-50%, 70%);
+	/* transform: translate(-50%, 70%); */
+	margin-top: 30px;
 	font-size: 30px;
 }
 

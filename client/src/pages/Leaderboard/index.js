@@ -38,8 +38,10 @@ const Leaderboard = () => {
 
     return(
         <section>
-            <h1>Leaderboard!</h1>
-           { data && <>
+            <img src='https://drive.google.com/uc?export=view&id=1sB52ZH3jpNpi9S1IuuEvsp2Op_W_muOe' alt='icon'/>
+            <h1>Leaderboard</h1>
+            {!data ? <p>Loading data ...</p> :
+            <>
             <LeaderboardMessage leader={leader} secondPlace={secondPlace} thirdPlace={thirdPlace}/>
             <table>
                <tbody>
@@ -59,7 +61,7 @@ const Leaderboard = () => {
                         <td>{thirdPlace.score}</td>
                     </tr>
                     {otherPlayers.map(player => (
-                        <tr key={player._id}>
+                        <tr key={player.username}>
                             <td>{player.place}</td>
                             <td>{player.username}</td>
                             <td>{player.score}</td>

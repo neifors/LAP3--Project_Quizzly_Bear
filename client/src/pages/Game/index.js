@@ -1,6 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {useTimer} from 'react-timer-hook';
 import './style.css'
+import './dropdown.css'
+import './shake.css'
+import './correct.css'
+import Countdown from 'react-countdown'
+import ProgressBar from '../../components/ProgressBar'
 
 const Game = () => {
     const [gameStarted, setGameStarted] = useState(false);
@@ -12,9 +16,9 @@ const Game = () => {
     const [shuffled, setShuffled] = useState([]);
     const [score, setScore] = useState(0);
     const [numberCorrect, setNumberCorrect] = useState(0);
-    const [difficulty, setDifficulty] = useState("");
     const [category, setCategory] = useState("");
     const [expiryTime, setExpiryTime] = useState();
+    const [secondsLeft, setSecondsLeft] = useState(20);
 
     async function startGame(event) {
         //https://opentdb.com/api.php?amount=10&category=9&difficulty=hard&type=multiple
@@ -40,7 +44,12 @@ const Game = () => {
                 parsedCategory = 17;
                 break;
         }
-        let url = `http://opentdb.com/api.php?amount=10&type=multiple&difficulty=${event.target.difficulty.value}&category=${parsedCategory}`;
+        //unfortunately, the api does not support multiple categories that don't include everything in their database
+        //so we can't just have the 6 categories specified above unless we made many api requests
+        let url = `http://opentdb.com/api.php?amount=10&type=multiple&category=${parsedCategory}`;
+        if (event.target.difficulty.value !== "mixed") {
+            url = url.concat(`&difficulty=${event.target.difficulty.value}`);
+        }
         let localQuestions;
         try {
             const questionsJson = await fetch(url);
@@ -64,9 +73,9 @@ const Game = () => {
             setQuestions(localQuestions.results);
             //set global difficulty and category so we can change scores awarded appropriately
             //and send back relevant category to the server later
-            setDifficulty(event.target.difficulty.value);
             setCategory(event.target.category.value);
 
+            resetTimer();
             setCurrentQuestion(localQuestions.results[0]);
         } catch (error) {
             console.log(error);
@@ -75,8 +84,6 @@ const Game = () => {
         }
         setGameStarted(true);
     }
-
-
 
     class RenderQuestionButton extends React.Component {
         constructor(props) {
@@ -117,7 +124,7 @@ const Game = () => {
 
     function submitAnswer() {
         if (selectedAnswer === currentQuestion.correct_answer) {
-            switch (difficulty) {
+            switch (currentQuestion.difficulty) {
                 case 'easy':
                     setScore(score + 1);
                     break;
@@ -129,9 +136,15 @@ const Game = () => {
                     break;
             }
             setNumberCorrect(numberCorrect + 1);
+        } else {
+            document.querySelector("#root").style.animationPlayState = "running";
+            setTimeout(() => {
+                document.querySelector("#root").style.animationPlayState = "paused";
+            }, 820)
         }
         setSelectedAnswer("");
         if (questionIndex + 1 < 10) {
+            resetTimer();
             setCurrentQuestion(questions[questionIndex + 1]);
             setQuestionIndex(questionIndex + 1);
         } else {
@@ -164,30 +177,42 @@ const Game = () => {
         RenderQuestionButtons();
     }, [shuffled])
 
-    function resetTimer() {
-        const time = new Date();
-        time.setSeconds(time.getSeconds() + 30);
-        setExpiryTime(time);
+    function handleTimerAdvance() {
+        if (document.querySelector("#secondsTimer")) {
+            submitAnswer();
+        }
     }
 
-    function Timer() {
-        const {
-            seconds,
-            minutes,
-            hours,
-            days,
-            isRunning,
-            start,
-            pause,
-            resume,
-            restart,
-          } = useTimer({ expiryTime, onExpire: () => submitAnswer()});
-        
+    function TimerBar(props) {
+        if (document.querySelector("#secondsTimer")) {
+            return (
+                <>
+                    <ProgressBar color={"#ff7979"} width={"102%"} value={props.secondsLeft} max={20} />
+                </>
+            )
+        } else {
+            return (<></>);
+        }
+    }
+
+    function Timer(props) {
+        const renderer = ({seconds}) => (
+            <span id="secondsTimer">{seconds - 1}</span>
+        )
+
+        function updateSeconds() {
+            props.setSecondsLeft(parseInt(document.querySelector("#secondsTimer").textContent))
+        }
+
         return (
             <>
-            <p>Time: {seconds}</p>
+                <h3 id="timeCounter">Time: <Countdown date={props.time} renderer={renderer} onStart={updateSeconds} onTick={updateSeconds} onComplete={handleTimerAdvance} /></h3>
             </>
         )
+    }
+
+    function resetTimer() {
+        setExpiryTime(Date.now() + 21000);
     }
 
     function QuestionTitle() {
@@ -198,28 +223,50 @@ const Game = () => {
         )
     }
 
-    function Counter() {
-        return (
-            <>
-                <p>Number Correct: {numberCorrect}</p>
-                <p>Score: {score}</p>
-            </>
-        );
+    function Counter(props) {
+        function MainCounterComponent() {
+            return (
+                <>
+                    <h2>Number Correct: {props.numberCorrect}</h2>
+                    <h2>Score: {props.score}</h2>
+                </>
+            )
+        } 
+        if (props.gameFinished) {
+            return (
+                <>
+                    <div id="counters" className="endOfGameCounterPosition correct">
+                        <MainCounterComponent />
+                    </div>
+                </>
+            );
+        } else {
+            return (
+                <>
+                    <div id="counters" className="defaultCounterPosition correct">
+                        <MainCounterComponent />
+                    </div>
+                </>
+            );
+        }
     }
 
     function RenderPage() {
+        document.querySelector("#root").classList.add("bodyShake");
         if (gameFinished) {
+            document.querySelector("#root").classList.remove("bodyShake");
             return (
                 <>
-                    <Counter />
+                    <Counter gameFinished={gameFinished} />
                     <h1>GG</h1>
                 </>
             )
         } else if (gameStarted) {
             return (
                 <>
-                	<Timer />
-                    <Counter />
+                    <TimerBar secondsLeft={secondsLeft} />
+                	<Timer setSecondsLeft={setSecondsLeft} time={expiryTime} /><br />
+                    <Counter numberCorrect={numberCorrect} score={score} gameFinished={gameFinished} />
                     <QuestionTitle />
                     <RenderQuestionButtons />
                 </>
@@ -227,25 +274,26 @@ const Game = () => {
         } else {
             return (
                 <>
-                <h1>Welcome to Quizzly Bears🐻</h1>
+                <h1 id="mainTitle">Welcome to Quizzly Bears' quiz 🐻</h1>
                 <form onSubmit={startGame}>
                     <label id="difficultyLabel">Difficulty:
-                    <select name="difficulty" id="difficulty">
-                        <option value="easy">Easy</option>
-                        <option value="medium">Medium</option>
-                        <option value="hard">Hard</option>
+                    <br /><select name="difficulty" id="difficulty">
+                        <option value="mixed">🤹 Mixed</option>
+                        <option value="easy">🤣 Easy</option>
+                        <option value="medium">🤔 Medium</option>
+                        <option value="hard">😳 Hard</option>
                     </select><br />
                     </label>
                     <label id="categoryLabel">Category:
-                    <select name="category" id="category">
-                        <option value="General Knowledge">General Knowledge</option>
-                        <option value="History">History</option>
-                        <option value="Science & Nature">Science & Nature</option>
-                        <option value="Geography">Geography</option>
-                        <option value="Sports">Sports</option>
-                        <option value="Animals">Animals</option>
+                    <br /><select name="category" id="category">
+                        <option value="General Knowledge">📚 General Knowledge</option>
+                        <option value="History">🕰️ History</option>
+                        <option value="Science & Nature">🧪 Science & Nature</option>
+                        <option value="Geography">🌍 Geography</option>
+                        <option value="Sports">🏃‍♂️ Sports</option>
+                        <option value="Animals">🦓 Animals</option>
                     </select></label>
-                    <button type="submit">Start the Quiz!</button>
+                    <button id="startTheQuiz" type="submit">Start the Quiz!</button>
                 </form>
                 </>
             )

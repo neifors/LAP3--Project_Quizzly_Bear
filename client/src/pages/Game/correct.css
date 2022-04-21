@@ -1,0 +1,18 @@
+.correct {
+  animation: pop 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  backface-visibility: hidden;
+  perspective: 1000px;
+	animation-play-state: paused;
+	animation-iteration-count: infinite;
+}
+
+@keyframes pop {
+	50% {
+		transform: scale(50%, 50%);
+		color: red;
+	} 
+
+	100% {
+		transform: scale(0, 0);
+	}
+}

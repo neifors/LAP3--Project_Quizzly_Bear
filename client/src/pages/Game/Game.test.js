@@ -1,18 +1,16 @@
-import { default as Leaderboard } from '.';
+import { default as Game } from '.';
 import { screen, render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
-describe('Leaderboard', () => {
+describe('Game', () => {
 
 beforeEach(() => {
-    render(<Leaderboard/>, { wrapper: MemoryRouter });
+    render(<Game/>, { wrapper: MemoryRouter });
 })
 
 test('it renders heading', ()=> {
     const paragraph = screen.getByRole('heading');
-    expect(paragraph.textContent).toContain('Leaderboard!')
+    expect(paragraph.textContent).toContain('Welcome to Quizzly Bears🐻')
 })
-
-
 
 })

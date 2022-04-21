@@ -1,5 +1,4 @@
 import { default as Game } from '.';
-import { Timer } from '.';
 import { screen, render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -21,12 +20,6 @@ describe('Game', () => {
     test('it renders a form', () => {
         const form = screen.getByRole('form')
         expect(form).toBeInTheDocument
-    })
-
-    test('Timer renders a span', () => {
-        render(Timer)
-        const h3 = screen.getByRole('heading')
-        expect(h3).toBeInTheDocument
     })
 
 })

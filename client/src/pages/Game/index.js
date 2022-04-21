@@ -257,7 +257,7 @@ const Game = () => {
             document.querySelector("#root").classList.remove("bodyShake");
             return (
                 <>
-                    <Counter gameFinished={gameFinished} />
+                    <Counter numberCorrect={numberCorrect} score={score} gameFinished={gameFinished} />
                     <h1>GG</h1>
                 </>
             )

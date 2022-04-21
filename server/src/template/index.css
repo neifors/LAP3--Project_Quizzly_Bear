@@ -1,5 +1,5 @@
 body {
-   background-color: #e3daff;
+   background-color: #f6f3f0;
    padding: 20px;
 }
 
@@ -7,8 +7,13 @@ h1, h2 {
    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+h1 img {
+   width: 50px;
+
+}
+
 h3 {
-   color: #04AA6D;
+   color: #fd6262;
    font-weight: bold;
 }
 
@@ -34,7 +39,7 @@ th {
    padding-top: 12px;
    padding-bottom: 12px;
    text-align: left;
-   background-color: #04AA6D;
+   background-color: #fd6262;
    color: white;
  }
 

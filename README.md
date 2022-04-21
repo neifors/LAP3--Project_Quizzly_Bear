@@ -119,7 +119,7 @@ We don't think there is a better way to learn than playing this amazing game whe
 - Removes volumes
 
 
-![Server COVERAGE](https://i.ibb.co/pQwc4Vz/2022-04-20-5.png)
+![Server COVERAGE](https://i.ibb.co/4VqZ6sh/2022-04-21.png)
 
 # **Wins & Challenges**
 

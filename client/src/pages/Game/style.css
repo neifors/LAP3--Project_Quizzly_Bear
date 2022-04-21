@@ -37,10 +37,10 @@ progress {
 	position: relative;
 }
 
-#counters {
-	display: inline-block;
-	position: absolute;
-}
+/* #counters { */
+	/* display: inline-block; */
+	/* position: absolute; */
+/* } */
 
 .endOfGameCounterPosition {
 	transform: translate(-50%, 70%);

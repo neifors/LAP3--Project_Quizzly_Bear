@@ -35,3 +35,7 @@ p {
     margin-bottom: 0.5rem;
     align-self: center;
 }
+
+p.clickable {
+    color: rgb(111, 78, 45);
+}

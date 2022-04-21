@@ -1,7 +1,7 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom'
 
-const HomeButton = () => {
+const RootButton = () => {
 
     const goTo = useNavigate()
 
@@ -10,4 +10,4 @@ const HomeButton = () => {
     )
 }
 
-export default HomeButton
+export default RootButton

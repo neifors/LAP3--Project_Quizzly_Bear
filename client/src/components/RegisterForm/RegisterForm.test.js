@@ -14,7 +14,7 @@ describe('LoginForm', () => {
         expect(form).toBeInTheDocument();
     });
 
-    test('it listens for changes in inputs', () => {
+    test('it has username and password inputs', () => {
         let usernameInput = screen.getByLabelText('Username');
         let passwordInput = screen.getByLabelText('Password');
         expect(usernameInput).toBeInTheDocument

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { getLeaderboardData, deleteUser } from ".";
+import { getLeaderboardData, deleteUser, getUserScore, updateUserScore } from ".";
 
 jest.mock('axios');
 
@@ -13,6 +13,31 @@ describe('getLeaderboardData', () => {
         await getLeaderboardData();
 
         expect(axios.get).toHaveBeenCalledWith(`https://quizzlybears.azurewebsites.net/users`);
+    });
+})
+
+describe('getUserScore', () => {
+    it('successfully gets data from the API', async () => {
+        const username = 'Test'
+        const data = { username: 'Test', score: 4};
+
+        axios.get.mockResolvedValueOnce(data);
+
+        await getUserScore(username);
+
+        expect(axios.get).toHaveBeenCalledWith(`https://quizzlybears.azurewebsites.net/users/username/${username}`);
+    });
+})
+
+describe('updateUserScore', () => {
+    it('successfully gets data from the API', async () => {
+        const data = { username: 'Test', new_score: 4};
+
+        axios.get.mockResolvedValueOnce(data);
+
+        await updateUserScore(data);
+
+        expect(axios.put).toHaveBeenCalledWith(`https://quizzlybears.azurewebsites.net/users/update`, data);
     });
 })
 

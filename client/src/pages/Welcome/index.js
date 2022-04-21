@@ -8,12 +8,12 @@ const Welcome = () => {
 
     const userInfo = localStorage.getItem('token')
     const username = jwt(userInfo).username
-    const dislpayName = username.charAt(0).toUpperCase() + username.slice(1);
+    const displayName = username.charAt(0).toUpperCase() + username.slice(1);
     
     return (
         <>
             <section>
-                <h2>Welcome {dislpayName}!</h2>
+                <h2>Welcome {displayName}!</h2>
 
                 <StartGame/>
                 <ProfileButton />

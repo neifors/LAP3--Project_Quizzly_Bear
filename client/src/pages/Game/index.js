@@ -5,6 +5,8 @@ import './shake.css'
 import './correct.css'
 import Countdown from 'react-countdown'
 import ProgressBar from '../../components/ProgressBar'
+import jwt from 'jwt-decode'
+import { updateUserScore } from '../../actions';
 
 const Game = () => {
     const [gameStarted, setGameStarted] = useState(false);
@@ -149,6 +151,19 @@ const Game = () => {
             setQuestionIndex(questionIndex + 1);
         } else {
             setGameFinished(true);
+            if (localStorage.getItem("token")) {
+                const userInfo = localStorage.getItem('token')
+                const username = jwt(userInfo).username
+                try {
+                    const data = {
+                        username: username,
+                        new_score: score
+                    }
+                    updateUserScore(data)
+                } catch (error) {
+                    console.warn(error);
+                }
+            }
         }
         RenderPage();
     }

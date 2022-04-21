@@ -49,6 +49,14 @@ export const getLeaderboardData = async () => {
     }
 }
 
+export const updateUserScore = async (data) => {
+    try{
+        await axios.put('https://quizzlybears.azurewebsites.net/users/update', data)
+    }catch(err){
+        console.warn(err)
+    }
+}
+
 export const deleteUser = async(username) => {
     try {
         const response = await axios.delete('https://quizzlybears.azurewebsites.net/users/delete', {data: {username: username}})

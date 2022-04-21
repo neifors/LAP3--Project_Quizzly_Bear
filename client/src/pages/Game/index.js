@@ -5,6 +5,10 @@ import './shake.css'
 import './correct.css'
 import Countdown from 'react-countdown'
 import ProgressBar from '../../components/ProgressBar'
+import jwt from 'jwt-decode'
+import { getUserScore, updateUserScore } from '../../actions';
+import HomeButton from '../../components/HomeButton';
+import RootButton from '../../components/RootButton';
 
 const Game = () => {
     const [gameStarted, setGameStarted] = useState(false);
@@ -19,6 +23,8 @@ const Game = () => {
     const [category, setCategory] = useState("");
     const [expiryTime, setExpiryTime] = useState();
     const [secondsLeft, setSecondsLeft] = useState(20);
+    const [scoreUpdated, setScoreUpdated] = useState(false);
+    const [username, setUsername] = useState("");
 
     async function startGame(event) {
         //https://opentdb.com/api.php?amount=10&category=9&difficulty=hard&type=multiple
@@ -46,7 +52,7 @@ const Game = () => {
         }
         //unfortunately, the api does not support multiple categories that don't include everything in their database
         //so we can't just have the 6 categories specified above unless we made many api requests
-        let url = `http://opentdb.com/api.php?amount=10&type=multiple&category=${parsedCategory}`;
+        let url = `https://opentdb.com/api.php?amount=10&type=multiple&category=${parsedCategory}`;
         if (event.target.difficulty.value !== "mixed") {
             url = url.concat(`&difficulty=${event.target.difficulty.value}`);
         }
@@ -122,7 +128,7 @@ const Game = () => {
         setShuffled(localShuffled);
     }
 
-    function submitAnswer() {
+    async function submitAnswer() {
         if (selectedAnswer === currentQuestion.correct_answer) {
             switch (currentQuestion.difficulty) {
                 case 'easy':
@@ -149,6 +155,21 @@ const Game = () => {
             setQuestionIndex(questionIndex + 1);
         } else {
             setGameFinished(true);
+            if (localStorage.getItem("token")) {
+                const userInfo = localStorage.getItem('token')
+                const username = jwt(userInfo).username
+                    try {
+                        const data = {
+                            username: username,
+                            new_score: score
+                        }
+                        updateUserScore(data)
+                        setScoreUpdated(true);
+                        setUsername(username)
+                    } catch (error) {
+                        console.warn(error);
+                    }
+            }
         }
         RenderPage();
     }
@@ -251,14 +272,32 @@ const Game = () => {
         }
     }
 
+    function ScoreUpdatedText() {
+        if (scoreUpdated) {
+            return (
+                <>
+                    <h1>You've earned {score} for {username}!</h1>
+                    <HomeButton />
+                </>
+            )
+        } else {
+            return(
+                <>
+                    <RootButton />
+                </>
+                )
+            }
+        }
+
     function RenderPage() {
         document.querySelector("#root").classList.add("bodyShake");
         if (gameFinished) {
             document.querySelector("#root").classList.remove("bodyShake");
             return (
                 <>
-                    <Counter gameFinished={gameFinished} />
+                    <Counter numberCorrect={numberCorrect} score={score} gameFinished={gameFinished} />
                     <h1>GG</h1>
+                    <ScoreUpdatedText />
                 </>
             )
         } else if (gameStarted) {

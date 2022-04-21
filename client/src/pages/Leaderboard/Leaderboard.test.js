@@ -10,7 +10,7 @@ beforeEach(() => {
 
 test('it renders heading', ()=> {
     const paragraph = screen.getByRole('heading');
-    expect(paragraph.textContent).toContain('Leaderboard!')
+    expect(paragraph.textContent).toContain('Leaderboard')
 })
 
 

@@ -20,13 +20,13 @@ const Profile = () => {
 
     const userInfo = localStorage.getItem('token')
     const username = jwt(userInfo).username
-    const dislpayName = username.charAt(0).toUpperCase() + username.slice(1);
+    const displayName = username.charAt(0).toUpperCase() + username.slice(1);
     const userData = data && data.find(x => x.username == `${username}`)
     const score = userData && userData.score
     return (
         <section className='profile'>
             <img src='https://drive.google.com/uc?export=view&id=1or22FAHZtztxmNLSqAlZetPPLhsrX702' alt='Icon' />
-            <h1>Welcome back {dislpayName}!</h1>
+            <h1>Welcome back {displayName}!</h1>
             <h2>Your Score is currently {score}! Great job! </h2>
             <LeaderboardButton />
             <StartGame />

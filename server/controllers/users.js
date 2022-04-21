@@ -89,7 +89,6 @@ async function updateUserScore(req, res) {
 async function deleteUser(req, res) {
     try{
         const user = await User.getByUsername(req.body.username)
-        if(!user) res.status(400).json({err: "user not found"})
         const userObj = new User(user)
         const response = await userObj.remove();
         res.status(200).json({msg: `Delete user ${req.body.username}: Successful`, response: response})

@@ -113,6 +113,5 @@ describe('users endpoints', () => {
         expect(res.statusCode).toEqual(200);
         const userRes = await request(api).get('/users/test5');
         expect(userRes.statusCode).toEqual(404);
-        expect(userRes.body).toHaveProperty('err');
     })
 })

@@ -1,5 +1,7 @@
 const controller = require('../../../controllers/users')
 const User = require('../../../models/User');
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const mockSend = jest.fn();
 const mockJson = jest.fn();
@@ -85,6 +87,64 @@ describe('user controller', () => {
       })
    });
 
+   describe('updateUserScore', () => {
+      test('it returns a 200 status code and a message', async () => {
+          let testUser = {
+               username: 'futureproof', 
+               password: 'futureproof', 
+            }
+          
+          jest.spyOn(User, 'updateScore')
+              .mockResolvedValue(testUser); 
+          const mockReq = { body: { username: "futureproof", new_score: 100 } }
+          await controller.updateUserScore(mockReq, mockRes);
+          expect(mockStatus).toHaveBeenCalledWith(200);
+          expect(mockJson).toHaveBeenCalledWith({msg: `Update score of user futureproof: Successful`});
+      })
+  });
+
+    describe('deleteUser', () => {
+        test('it deletes a user and returns a 200 status code', async () => {
+
+            let userTest = {
+               _id:"test1", 
+               username: "test1", 
+               password: "test1", 
+               score: 0
+            }
+
+            jest.spyOn(User, 'getByUsername')
+                .mockResolvedValue(userTest)
+            jest.spyOn(User.prototype, 'remove')
+                .mockResolvedValue('Deleted');
+            
+            const mockReq = { params: { username:'test1' } }
+            await controller.deleteUser(mockReq, mockRes);
+            expect(mockStatus).toHaveBeenCalledWith(200);
+        })
+    });
+
+
+    // ------------------------- //
+    // NO IDEA HOW TO TEST LOGIN //
+    // ------------------------- //
+
+
+   //  describe('login', () => {
+   //    test('user login returns a token and 200 status code', async () => {
+         
+   //       let userTest = {
+   //          _id:"test1", 
+   //          username: "test1", 
+   //          password: "test1", 
+   //          score: 0
+   //       }
+   //       jest.spyOn(User, 'getByUsername')
+   //           .mockResolvedValue(userTest)
+   //       jest.spyOn(bcrypt, 'compare')
+   //           .mockResolvedValue(true)
+
+   //    })
+   //  })
    
-   //{user: newUser, msg: "Register Successful"}
 })

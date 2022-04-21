@@ -315,7 +315,7 @@ const Game = () => {
             return (
                 <>
                 <h1 id="mainTitle">Welcome to Quizzly Bears' quiz 🐻</h1>
-                <form onSubmit={startGame}>
+                <form aria-label='form' onSubmit={startGame}>
                     <label id="difficultyLabel">Difficulty:
                     <br /><select name="difficulty" id="difficulty">
                         <option value="mixed">🤹 Mixed</option>

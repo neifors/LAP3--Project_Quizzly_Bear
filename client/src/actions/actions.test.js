@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { getLeaderboardData, deleteUser, getUserScore, updateUserScore } from ".";
+import { getLeaderboardData, deleteUser, getUserScore, updateUserScore, registerFunction, loginFunction } from ".";
 
 jest.mock('axios');
 
@@ -51,6 +51,7 @@ describe('deleteUser', () => {
 
         expect(axios.delete).toHaveBeenCalledWith(`https://quizzlybears.azurewebsites.net/users/delete`, {"data": {"username": "Test"}});
     })
+
 })
 
 

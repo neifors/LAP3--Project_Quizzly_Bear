@@ -38,7 +38,7 @@ function LoginForm() {
             <input aria-label="Username" name="username" type='text' onChange={updateUsername} />
             <label htmlFor='Password'>Password</label>
             <input aria-label='Password' name="password" type='password' onChange={updatePassword} />
-            <input className='submit' type='submit' value='LOGIN' />
+            <input role='submit' className='submit' type='submit' value='LOGIN' />
             <p className='clickable' onClick={() => goTo('/register')}>Don't have an account yet? Register here!</p>
         </form>
     );

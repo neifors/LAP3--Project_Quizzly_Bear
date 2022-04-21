@@ -1,7 +1,10 @@
 import { default as LoginForm } from '.';
 import { screen, render } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
+import { registerFunction } from '../../actions'
+import axios from 'axios'
+
+jest.mock('axios')
 
 describe('LoginForm', () => {
 
@@ -20,4 +23,12 @@ describe('LoginForm', () => {
         expect(usernameInput).toBeInTheDocument
         expect(passwordInput).toBeInTheDocument
     })
+
+    test('expect registerFunction to be called on submission', () => {
+        let e = { username: 'Test', password: 'password'}
+        const submit = screen.getByRole('submit')
+        userEvent.click(submit)
+        expect(registerFunction(e)).toHaveBeenCalled
+    })
+
 })

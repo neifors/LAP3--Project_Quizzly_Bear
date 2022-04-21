@@ -49,6 +49,17 @@ export const getLeaderboardData = async () => {
     }
 }
 
+export const getUserScore = async (username) => {
+    try{
+        const response = await axios.get(`https://quizzlybears.azurewebsites.net/users/username/${username}`)
+        const data = response.data;
+        console.log(data.score)
+        return data.score;
+    }catch(err){
+        console.warn(err)
+    }
+}
+
 export const updateUserScore = async (data) => {
     try{
         await axios.put('https://quizzlybears.azurewebsites.net/users/update', data)

@@ -6,7 +6,7 @@ import './correct.css'
 import Countdown from 'react-countdown'
 import ProgressBar from '../../components/ProgressBar'
 import jwt from 'jwt-decode'
-import { updateUserScore } from '../../actions';
+import { getUserScore, updateUserScore } from '../../actions';
 
 const Game = () => {
     const [gameStarted, setGameStarted] = useState(false);
@@ -124,7 +124,7 @@ const Game = () => {
         setShuffled(localShuffled);
     }
 
-    function submitAnswer() {
+    async function submitAnswer() {
         if (selectedAnswer === currentQuestion.correct_answer) {
             switch (currentQuestion.difficulty) {
                 case 'easy':
@@ -154,15 +154,15 @@ const Game = () => {
             if (localStorage.getItem("token")) {
                 const userInfo = localStorage.getItem('token')
                 const username = jwt(userInfo).username
-                try {
-                    const data = {
-                        username: username,
-                        new_score: score
+                    try {
+                        const data = {
+                            username: username,
+                            new_score: score
+                        }
+                        updateUserScore(data)
+                    } catch (error) {
+                        console.warn(error);
                     }
-                    updateUserScore(data)
-                } catch (error) {
-                    console.warn(error);
-                }
             }
         }
         RenderPage();

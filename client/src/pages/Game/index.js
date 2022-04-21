@@ -8,6 +8,7 @@ import ProgressBar from '../../components/ProgressBar'
 import jwt from 'jwt-decode'
 import { getUserScore, updateUserScore } from '../../actions';
 import HomeButton from '../../components/HomeButton';
+import RootButton from '../../components/RootButton';
 
 const Game = () => {
     const [gameStarted, setGameStarted] = useState(false);
@@ -276,10 +277,17 @@ const Game = () => {
             return (
                 <>
                     <h1>You've earned {score} for {username}!</h1>
+                    <HomeButton />
                 </>
             )
-        } else return(<></>)
-    }
+        } else {
+            return(
+                <>
+                    <RootButton />
+                </>
+                )
+            }
+        }
 
     function RenderPage() {
         document.querySelector("#root").classList.add("bodyShake");
@@ -290,7 +298,6 @@ const Game = () => {
                     <Counter numberCorrect={numberCorrect} score={score} gameFinished={gameFinished} />
                     <h1>GG</h1>
                     <ScoreUpdatedText />
-                    <HomeButton />
                 </>
             )
         } else if (gameStarted) {

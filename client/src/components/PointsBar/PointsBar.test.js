@@ -7,7 +7,7 @@ describe('PointsBar', () => {
         render(<PointsBar bgcolor={"red"} progress={"50"}  height={50}/>,  { wrapper: MemoryRouter });
     })
 
-    test('renders a button', () => {
+    test('renders a level progress bar', () => {
         const progressBar = screen.getByRole('level-progress-bar')
         expect(progressBar.textContent).toEqual('50%');
         expect(progressBar).toHaveStyle("backgroundColor:red;")

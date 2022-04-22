@@ -3,6 +3,13 @@ import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { loginFunction } from '../../actions'
+import axios from 'axios'
+
+jest.mock('axios', () => {
+    return {
+        post: jest.fn(() => Promise.resolve({ data: {} })),
+      };
+});
 
 describe('LoginForm', () => {
     let getLoginMock;
@@ -30,11 +37,13 @@ describe('LoginForm', () => {
         expect(nameInput.value).toBe("");
       });
 
-    test('expect getlogin to be called on submission', () => {
-        let e = { username: 'Test', password: 'password'}
+    test('expect getlogin to be called on submission',async () => {
+        let e = { target: {username: 'Test', password: 'password'}}
         const submit = screen.getByRole('submit')
         userEvent.click(submit)
-        expect(loginFunction(e)).toHaveBeenCalled
+        axios.post.mockImplementation(Promise.resolve(e.target));
+        await loginFunction(e)
+        expect(axios.post).toHaveBeenCalled
     })
 
 })

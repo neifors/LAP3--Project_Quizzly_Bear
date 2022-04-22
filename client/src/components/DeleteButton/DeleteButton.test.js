@@ -7,7 +7,7 @@ let username = 'tom'
 
 describe('DeleteButton', () => {
     beforeEach(() => {
-        render(<DeleteButton username={username} />);
+        render(<DeleteButton username={username} />, { wrapper: MemoryRouter });
     })
 
     test('renders a button', () => {

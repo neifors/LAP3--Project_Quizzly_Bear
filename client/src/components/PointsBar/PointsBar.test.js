@@ -2,13 +2,14 @@ import { default as PointsBar } from '.';
 import { screen, render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
-describe('RootButton', () => {
+describe('PointsBar', () => {
     beforeEach(() => {
-        render(<PointsBar />,  { wrapper: MemoryRouter });
+        render(<PointsBar bgcolor={"red"} progress={"50"}  height={50}/>,  { wrapper: MemoryRouter });
     })
 
     test('renders a button', () => {
-        const btn = screen.getByRole('button')
-        expect(btn.textContent).toContain('Back To Start');
+        const progressBar = screen.getByRole('level-progress-bar')
+        expect(progressBar.textContent).toEqual('50%');
+        expect(progressBar).toHaveStyle("backgroundColor:red;")
     })
 })

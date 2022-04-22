@@ -1,6 +1,6 @@
 import { default as DeleteButton } from '.';
 import { screen, render } from '@testing-library/react';
-import { MemoryRouter, useNavigate } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { deleteUser } from '../../actions'
 
 let username = 'tom'
@@ -20,4 +20,5 @@ describe('DeleteButton', () => {
         userEvent.click(btn)
         expect(deleteUser(username)).toHaveBeenCalled
     })
+
 })

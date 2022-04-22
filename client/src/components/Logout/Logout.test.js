@@ -2,6 +2,7 @@ import { default as Logout } from '.';
 import { screen, render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
+
 describe('Logout', () => {
     beforeEach(() => {
         render(<Logout />, { wrapper: MemoryRouter });

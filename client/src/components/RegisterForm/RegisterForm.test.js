@@ -4,7 +4,12 @@ import { MemoryRouter } from 'react-router-dom';
 import { registerFunction, loginFunction } from '../../actions'
 import axios from 'axios'
 
-jest.mock('axios')
+jest.mock('axios', () => {
+    return {
+        post: jest.fn(() => Promise.resolve({ data: {} })),
+      };
+});
+
 
 describe('RegisterForm', () => {
 
@@ -24,18 +29,13 @@ describe('RegisterForm', () => {
         expect(passwordInput).toBeInTheDocument
     })
 
-    test('expect registerFunction to be called on submission', () => {
-        let e = { username: 'Test', password: 'password'}
+    test('expect registerFunction to be called on submission', async() => {
+        let e = { target: {username: 'Test', password: 'password'}}
         const submit = screen.getByRole('submit')
         userEvent.click(submit)
-        expect(registerFunction(e)).toHaveBeenCalled
-        expect(loginFunction(e)).toHaveBeenCalled
-    })
-
-    test('already have an account msg displayed', () => {
-        const msg = screen.getAllByRole('msg')
-        expect(msg).toBeInTheDocument
-
+        axios.post.mockImplementation(Promise.resolve(e.target));
+        await registerFunction(e)
+        expect(axios.post).toHaveBeenCalled
     })
 
 })

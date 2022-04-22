@@ -21,4 +21,5 @@ describe('DeleteButton', () => {
         userEvent.click(btn)
         expect(deleteUser(username)).toHaveBeenCalled
     })
+
 })

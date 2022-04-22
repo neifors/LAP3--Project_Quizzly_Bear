@@ -74,6 +74,14 @@ We don't think there is a better way to learn than playing this amazing game whe
 - [Jest](https://jestjs.io/)
 - [MongoDB](https://www.mongodb.com/)
 - [React](https://reactjs.org/)
+- [Azure]()
+- [Netlify]()
+- [Bcrypt]()
+- [Docker]()
+- (not) Redux
+	- Redux is overkill for a project like this
+	- No real use of global states
+
 
 # **Database Schema**
 
@@ -100,6 +108,8 @@ We don't think there is a better way to learn than playing this amazing game whe
 
 ## Client
 
+![Client COVERAGE](https://i.ibb.co/mv7vCYb/image-2.png)
+
 ## Server
 
 - Tests are running into a Docker enviroment.
@@ -125,7 +135,20 @@ We don't think there is a better way to learn than playing this amazing game whe
 
 ## Wins
 
+- Successfully managed to produce a site which met all of the basic requirements.
+- Deploy server and bd using Azure
+
 ## Challenges
+
+- Clientside testing for game logic
+	- Non trivial to test functions here
+	- Time constraints
+	- Solution is possibly to use Enzyme as well as Jest to allow for rerenders in the test DOM and to get the children of the main export.
+
+- Adding a multiplayer game mode
+	- Simply just ran out of time, an extra half a day and we could have created a locally run two player version.
+	- Solution is to have worked on the game logic over Easter (boo!)
+
 
 # **How it looks**
 

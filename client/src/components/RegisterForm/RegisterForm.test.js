@@ -1,7 +1,7 @@
-import { default as LoginForm } from '.';
+import { default as RegisterForm } from '.';
 import { screen, render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { registerFunction } from '../../actions'
+import { registerFunction, loginFunction } from '../../actions'
 import axios from 'axios'
 
 jest.mock('axios', () => {
@@ -11,10 +11,10 @@ jest.mock('axios', () => {
 });
 
 
-describe('LoginForm', () => {
+describe('RegisterForm', () => {
 
     beforeEach(() => {
-        render(<LoginForm />,  { wrapper: MemoryRouter });
+        render(<RegisterForm />,  { wrapper: MemoryRouter });
     });
 
     test('it renders a form', () => {

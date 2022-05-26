@@ -7,7 +7,7 @@ export const loginFunction = async (e) => {
             password: e.target.password.value
         }
 
-        const response = await axios.post('https://quizzlybears.azurewebsites.net/users/login', userData)
+        const response = await axios.post('https://quizzly-bears-server.herokuapp.com/users/login', userData)
         const data = await response.data
         if (data.err)
         {throw Error(data.err)}
@@ -25,7 +25,7 @@ export const registerFunction = async (e) => {
             password: e.target.password.value
         }
 
-        const response = await axios.post('https://quizzlybears.azurewebsites.net/users/register', userData)
+        const response = await axios.post('https://quizzly-bears-server.herokuapp.com/users/register', userData)
         const data = await response.data
         if (data.err)
         {throw Error(data.err)}
@@ -37,7 +37,7 @@ export const registerFunction = async (e) => {
 
 export const getLeaderboardData = async () => {
     try{
-        const response = await axios.get('https://quizzlybears.azurewebsites.net/users')
+        const response = await axios.get('https://quizzly-bears-server.herokuapp.com/users')
         const data = response.data;
         const sort= data.sort((a, b) => {
             return b.score - a.score;
@@ -51,7 +51,7 @@ export const getLeaderboardData = async () => {
 
 export const getUserScore = async (username) => {
     try{
-        const response = await axios.get(`https://quizzlybears.azurewebsites.net/users/username/${username}`)
+        const response = await axios.get(`https://quizzly-bears-server.herokuapp.com/users/username/${username}`)
         const data = response.data;
         console.log(data.score)
         return data.score;
@@ -62,7 +62,7 @@ export const getUserScore = async (username) => {
 
 export const updateUserScore = async (data) => {
     try{
-        await axios.put('https://quizzlybears.azurewebsites.net/users/update', data)
+        await axios.put('https://quizzly-bears-server.herokuapp.com/users/update', data)
     }catch(err){
         console.warn(err)
     }
@@ -70,7 +70,7 @@ export const updateUserScore = async (data) => {
 
 export const deleteUser = async(username) => {
     try {
-        const response = await axios.delete('https://quizzlybears.azurewebsites.net/users/delete', {data: {username: username}})
+        const response = await axios.delete('https://quizzly-bears-server.herokuapp.com/users/delete', {data: {username: username}})
         const data = response.data
     } catch  (err) {
         console.warn(err)
